@@ -17,3 +17,8 @@
  * \defgroup stm32f103 STM32F103
  * \ingroup arm
  */
+
+/**
+ * \defgroup atsamd21e ATSAMD21E
+ * \ingroup arm
+ */
