@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include "contiki.h"
+#include "clock.h"
+
 
 static volatile unsigned long seconds;
 static volatile clock_time_t ticks;

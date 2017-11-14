@@ -41,6 +41,7 @@
 #ifndef CONTIKI_CONF_H_
 #define CONTIKI_CONF_H_
 
+
 /* include the project config */
 #ifdef PROJECT_CONF_PATH
 #include PROJECT_CONF_PATH
@@ -68,6 +69,9 @@ int select_set_callback(int fd, const struct select_callback *callback);
 
 #define CCIF
 #define CLIF
+
+typedef unsigned long clock_time_t;
+typedef unsigned short rtimer_clock_t;
 
 /* These names are deprecated, use C99 names. */
 typedef uint8_t   u8_t;

@@ -9,8 +9,8 @@
 #ifndef __PLATFORM_CONF_H__
 #define __PLATFORM_CONF_H__
 
-typedef unsigned long clock_time_t;
-typedef unsigned long long rtimer_clock_t;
+//typedef unsigned long clock_time_t;
+//typedef unsigned long long rtimer_clock_t;
 
 /**
  * Using the internal oscillator at a frequency of 8MHz, core frequency
@@ -27,6 +27,8 @@ typedef unsigned long long rtimer_clock_t;
 /* Our clock resolution, this is the same as Unix Hz. */
 #define CLOCK_CONF_SECOND	(128U)
 
+#define PLATFORM_HAS_LEDS	1
+#define PLATFORM_HAS_BUTTON	1
 
 
 #endif /* __PLATFORM_CONF_H__ */
