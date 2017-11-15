@@ -6,5 +6,20 @@ OBJCOPY = arm-none-eabi-objcopy
 OBJDUMP = arm-none-eabi-objdump
 NM      = arm-none-eabi-nm
 
+
+ifeq ($(WERROR),1)
+CFLAGS += -Werror
+endif
+
 ### CPU-dependent directories
 CONTIKI_CPU_DIRS = ../arm/common/CMSIS . dev usb usb/common usb/common/cdc-acm
+
+### Use the existing debug I/O in arch/cpu/arm/common
+CONTIKI_CPU_DIRS += ../arm/common/dbg-io
+
+### CPU-dependent source files
+CONTIKI_CPU_SOURCEFILES += clock.c rtimer-arch.c
+
+CONTIKI_SOURCEFILES += $(CONTIKI_CPU_SOURCEFILES)
+
+MODULES += lib/newlib arch/cpu/arm/common/sys

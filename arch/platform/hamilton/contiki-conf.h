@@ -67,6 +67,9 @@ int select_set_callback(int fd, const struct select_callback *callback);
 #define EEPROM_CONF_SIZE				1024
 #endif
 
+/* Our clock resolution, this is the same as Unix Hz. */
+#define CLOCK_CONF_SECOND	(128U)
+
 #define CCIF
 #define CLIF
 

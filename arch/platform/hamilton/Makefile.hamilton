@@ -4,7 +4,16 @@ ifndef CONTIKI
   $(error CONTIKI not defined! You must specify where CONTIKI resides!)
 endif
 
+CONTIKI_TARGET_DIRS = .
+
+CONTIKI_TARGET_SOURCEFILES += platform.c
+
+CONTIKI_SOURCEFILES += $(CONTIKI_TARGET_SOURCEFILES)
 
 ### Define the CPU directory
 CONTIKI_CPU=$(CONTIKI)/arch/cpu/samd21
 include $(CONTIKI_CPU)/Makefile.samd21
+
+MODULES += os/net os/net/mac os/net/mac/framer \
+  os/storage/cfs
+

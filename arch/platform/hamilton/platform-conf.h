@@ -24,9 +24,6 @@
 /* Generate core clock frequency */
 #define F_CPU			(8000000 / CLOCK_DIV)
 
-/* Our clock resolution, this is the same as Unix Hz. */
-#define CLOCK_CONF_SECOND	(128U)
-
 #define PLATFORM_HAS_LEDS	1
 #define PLATFORM_HAS_BUTTON	1
 
