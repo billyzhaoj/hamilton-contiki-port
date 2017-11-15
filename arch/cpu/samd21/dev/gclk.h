@@ -70,8 +70,6 @@
  * @{
  */
 
-#define GCLK_CLKCTRL_
-
 #define GCLK_CLKCTRL_WRTLOCK					0x8000 /**< Lock generated clock, generator, and division factor*/
 #define GCLK_CLKCTRL_CLKEN 						0x4000 /**< Generic clock enabled*/
 #define GCLK_CLKCTRL_GCLKGEN0 					0x0000 /**< Generic clock generator 0 */
@@ -119,6 +117,8 @@
 #define GCLK_CLKCTRL_GCLK_AC_DIG				0x001F /**< AC_DIG */
 #define GCLK_CLKCTRL_GCLK_AC_ANA				0x0020 /**< AC_ANA */
 #define GCLK_CLKCTRL_GCLK_PTC					0x0022 /**< PTCReserved */
+#define GCLK_CLKCTRL_RESET						0x0000 /**< Default state after reset */
+#define GCLK_CLKCTRL_OFFSET						0x01 /**< Address offset */
 
 /** @} */
 
@@ -151,7 +151,26 @@
 #define GCLK_GENCTRL_GCLKGEN6				0x00000006 /**< Generic clock generator 6 */
 #define GCLK_GENCTRL_GCLKGEN7				0x00000007 /**< Generic clock generator 7 */
 #define GCLK_GENCTRL_GCLKGEN8 				0x00000008 /**< Generic clock generator 8 */
+#define GCLK_GENCTRL_RESET					0x00000000 /**< Default state after reset */
+#define GCLK_GENCTRL_OFFSET					0x4 /**< Address offset */
 
+
+/*---------------------------------------------------------------------------*/
+/** \name Generic clock generator control bit masks
+ * @{
+ */
+
+#define GCLK_GENDIV_GCLKGEN0				0x00000000 /**< Generic clock generator 0 */
+#define GCLK_GENDIV_GCLKGEN1				0x00000000 /**< Generic clock generator 1 */
+#define GCLK_GENDIV_GCLKGEN2				0x00000000 /**< Generic clock generator 2 */
+#define GCLK_GENDIV_GCLKGEN3				0x00000000 /**< Generic clock generator 3 */
+#define GCLK_GENDIV_GCLKGEN4				0x00000000 /**< Generic clock generator 4 */
+#define GCLK_GENDIV_GCLKGEN5				0x00000000 /**< Generic clock generator 5 */
+#define GCLK_GENDIV_GCLKGEN6				0x00000000 /**< Generic clock generator 6 */
+#define GCLK_GENDIV_GCLKGEN7				0x00000000 /**< Generic clock generator 7 */
+#define GCLK_GENDIV_GCLKGEN8				0x00000000 /**< Generic clock generator 8 */
+#define GCLK_GENDIV_RESET					0x00000000 /**< Default state after reset */
+#define GCLK_GENDIV_OFFSET					0x8 /**< Address offset */
 
 
 #endif /* GCLK_H_ */
