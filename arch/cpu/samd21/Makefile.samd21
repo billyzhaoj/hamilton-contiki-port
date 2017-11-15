@@ -1,0 +1,10 @@
+CC      = arm-none-eabi-gcc
+CPP     = arm-none-eabi-cpp
+LD      = arm-none-eabi-gcc
+AR      = arm-none-eabi-ar
+OBJCOPY = arm-none-eabi-objcopy
+OBJDUMP = arm-none-eabi-objdump
+NM      = arm-none-eabi-nm
+
+### CPU-dependent directories
+CONTIKI_CPU_DIRS = ../arm/common/CMSIS . dev usb usb/common usb/common/cdc-acm

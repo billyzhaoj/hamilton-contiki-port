@@ -1,0 +1,10 @@
+# hamilton platform makefile
+
+ifndef CONTIKI
+  $(error CONTIKI not defined! You must specify where CONTIKI resides!)
+endif
+
+
+### Define the CPU directory
+CONTIKI_CPU=$(CONTIKI)/arch/cpu/samd21
+include $(CONTIKI_CPU)/Makefile.samd21
