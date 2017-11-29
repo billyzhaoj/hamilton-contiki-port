@@ -32,7 +32,7 @@
  * \addtogroup samd21
  * @{
  *
- * \defgroup samd21-PM samd21 Generic Clock Controller
+ * \defgroup samd21-gclk samd21 Generic Clock Controller
  *
  * Driver for the samd21 Generic Clock Controller
  * @{
