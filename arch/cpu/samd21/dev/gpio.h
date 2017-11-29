@@ -200,6 +200,101 @@
 
 /** @} */
 
+/*---------------------------------------------------------------------------*/
+/** \name PMUXO and PMUXE peripheral function definitions
+ * @{
+ */
+#define GPIO_PMUX_A		0x0 /**< Peripheral function A selected */
+#define GPIO_PMUX_B		0x1 /**< Peripheral function B selected */
+#define GPIO_PMUX_c		0x2 /**< Peripheral function C selected */
+#define GPIO_PMUX_D		0x3 /**< Peripheral function D selected */
+#define GPIO_PMUX_E		0x4 /**< Peripheral function E selected */
+#define GPIO_PMUX_F		0x5 /**< Peripheral function F selected */
+#define GPIO_PMUX_G		0x6 /**< Peripheral function G selected */
+#define GPIO_PMUX_H		0x7 /**< Peripheral function H selected */
+
+/** @} */
+
+/*---------------------------------------------------------------------------*/
+/** \name PMUX register offset definitions
+ * \brief Each Peripheral Mux Register is comprised of two half-byte halves, 
+ * bits [7:4] are odd, and bits [3:0] are even. Peripheral functions can then 
+ * be selected for each mux using the defined function definitions A-H above. 
+ * Note that not all functions A-H may be valid. 
+ * @{
+ */
+
+#define GPIO_PMUX0_OFFSET	0x30 /**< MUX 0 Offset */
+#define GPIO_PMUX1_OFFSET	0x31 /**< MUX 1 Offset */
+#define GPIO_PMUX2_OFFSET	0x32 /**< MUX 2 Offset */
+#define GPIO_PMUX3_OFFSET	0x33 /**< MUX 3 Offset */
+#define GPIO_PMUX4_OFFSET	0x34 /**< MUX 4 Offset */
+#define GPIO_PMUX5_OFFSET	0x35 /**< MUX 5 Offset */
+#define GPIO_PMUX6_OFFSET	0x36 /**< MUX 6 Offset */
+#define GPIO_PMUX7_OFFSET	0x37 /**< MUX 7 Offset */
+#define GPIO_PMUX8_OFFSET	0x38 /**< MUX 8 Offset */
+#define GPIO_PMUX9_OFFSET	0x39 /**< MUX 9 Offset */
+#define GPIO_PMUX10_OFFSET	0x3A /**< MUX 10 Offset */
+#define GPIO_PMUX11_OFFSET	0x3B /**< MUX 11 Offset */
+#define GPIO_PMUX12_OFFSET	0x3C /**< MUX 12 Offset */
+#define GPIO_PMUX13_OFFSET	0x3D /**< MUX 13 Offset */
+#define GPIO_PMUX14_OFFSET	0x3E /**< MUX 14 Offset */
+#define GPIO_PMUX15_OFFSET	0x3F /**< MUX 15 Offset */
+
+/** @} */
+
+/*---------------------------------------------------------------------------*/
+/** \name GPIO_PINCFG fields and values
+ * @{
+ */
+
+#define GPIO_PINCFG_DRVSTR			0x40 /**< Stronger pin drive strength */
+#define GPIO_PINCFG_PULLEN			0x04 /**< Internal pull resistor enabled, and input driven to defined logic level in abscence of external input. */
+#define GPIO_PINCFG_INEN			0x02 /**< Input buffer for I/O pin is enabled and input will be sampled upon request */
+#define GPIO_PINCFG_PMUXEN			0x01 /**< The peripheral multiplexer selection is enabled, and the selected peripheral controls the direction and output drive value */
+
+/** @} */
+
+/*---------------------------------------------------------------------------*/
+/** \name GPIO_PINCFG register offsets, each takes PNCFG fields and values
+ * @{
+ */
+
+#define GPIO_PINCFG0_OFFSET			0x40 /**< Pin configuration 0 offset */
+#define GPIO_PINCFG1_OFFSET			0x41 /**< Pin configuration 1 offset */
+#define GPIO_PINCFG2_OFFSET			0x42 /**< Pin configuration 2 offset */
+#define GPIO_PINCFG3_OFFSET			0x43 /**< Pin configuration 3 offset */
+#define GPIO_PINCFG4_OFFSET			0x44 /**< Pin configuration 4 offset */
+#define GPIO_PINCFG5_OFFSET			0x45 /**< Pin configuration 5 offset */
+#define GPIO_PINCFG6_OFFSET			0x46 /**< Pin configuration 6 offset */
+#define GPIO_PINCFG7_OFFSET			0x47 /**< Pin configuration 7 offset */
+#define GPIO_PINCFG8_OFFSET			0x48 /**< Pin configuration 8 offset */
+#define GPIO_PINCFG9_OFFSET			0x49 /**< Pin configuration 9 offset */
+#define GPIO_PINCFG10_OFFSET		0x4A /**< Pin configuration 10 offset */
+#define GPIO_PINCFG11_OFFSET		0x4B /**< Pin configuration 11 offset */
+#define GPIO_PINCFG12_OFFSET		0x4C /**< Pin configuration 12 offset */
+#define GPIO_PINCFG13_OFFSET		0x4D /**< Pin configuration 13 offset */
+#define GPIO_PINCFG14_OFFSET		0x4E /**< Pin configuration 14 offset */
+#define GPIO_PINCFG15_OFFSET		0x4F /**< Pin configuration 15 offset */
+#define GPIO_PINCFG16_OFFSET		0x50 /**< Pin configuration 16 offset */
+#define GPIO_PINCFG17_OFFSET		0x51 /**< Pin configuration 17 offset */
+#define GPIO_PINCFG18_OFFSET		0x52 /**< Pin configuration 18 offset */
+#define GPIO_PINCFG19_OFFSET		0x53 /**< Pin configuration 19 offset */
+#define GPIO_PINCFG20_OFFSET		0x54 /**< Pin configuration 20 offset */
+#define GPIO_PINCFG21_OFFSET		0x55 /**< Pin configuration 21 offset */
+#define GPIO_PINCFG22_OFFSET		0x56 /**< Pin configuration 22 offset */
+#define GPIO_PINCFG23_OFFSET		0x57 /**< Pin configuration 23 offset */
+#define GPIO_PINCFG24_OFFSET		0x58 /**< Pin configuration 24 offset */
+#define GPIO_PINCFG25_OFFSET		0x59 /**< Pin configuration 25 offset */
+#define GPIO_PINCFG26_OFFSET		0x5A /**< Pin configuration 26 offset */
+#define GPIO_PINCFG27_OFFSET		0x5B /**< Pin configuration 27 offset */
+#define GPIO_PINCFG28_OFFSET		0x5C /**< Pin configuration 28 offset */
+#define GPIO_PINCFG29_OFFSET		0x5D /**< Pin configuration 29 offset */
+#define GPIO_PINCFG30_OFFSET		0x5E /**< Pin configuration 30 offset */
+#define GPIO_PINCFG31_OFFSET		0x5F /**< Pin configuration 31 offset */
+
+/** @} */
+
 #endif /* GPIO_H_ */
 
 /**
