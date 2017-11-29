@@ -7,6 +7,8 @@ OBJDUMP = arm-none-eabi-objdump
 NM      = arm-none-eabi-nm
 
 
+CFLAGS += -mcpu=cortex-m0plus -mthumb
+
 ifeq ($(WERROR),1)
 CFLAGS += -Werror
 endif
