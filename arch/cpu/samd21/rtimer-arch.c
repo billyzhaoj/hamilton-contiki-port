@@ -65,7 +65,7 @@ rtimer_arch_next_trigger(void)
 rtimer_clock_t
 rtimer_clock_now(void)
 {
-	return next_triggers;
+	return next_trigger;
 }
 
 void

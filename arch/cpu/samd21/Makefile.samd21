@@ -8,6 +8,7 @@ NM      = arm-none-eabi-nm
 
 
 CFLAGS += -mcpu=cortex-m0plus -mthumb
+CFLAGS += -Wall -DCMSIS_DEV_HDR=\"samd21_cm0plus.h\"
 
 ifeq ($(WERROR),1)
 CFLAGS += -Werror
