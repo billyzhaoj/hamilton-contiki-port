@@ -6,21 +6,11 @@ OBJCOPY = arm-none-eabi-objcopy
 OBJDUMP = arm-none-eabi-objdump
 NM      = arm-none-eabi-nm
 
-ifndef SOURCE_LDSCRIPT
-SOURCE_LDSCRIPT = $(CONTIKI_CPU)/samd21.lds
-endif
-LDSCRIPT = $(OBJECTDIR)/samd21.ld
-
 CFLAGS += -mcpu=cortex-m0plus -mthumb -mlittle-endian
 CFLAGS += -ffunction-sections -fdata-sections
 CFLAGS += -fshort-enums -fomit-frame-pointer -fno-strict-aliasing
 CFLAGS += -Wall -DCMSIS_DEV_HDR=\"samd21_cm0plus.h\"
 LDFLAGS += -specs=nosys.specs
-LDFLAGS += -mcpu=cortex-m3 -mthumb -nostartfiles
-LDFLAGS += -T $(LDSCRIPT)
-LDFLAGS += -Wl,-Map=$(@:.elf=-$(TARGET).map),--cref,--no-warn-mismatch
-OBJCOPY_FLAGS += -O binary --gap-fill 0xff
-OBJDUMP_FLAGS += --disassemble --source --disassembler-options=force-thumb
 
 
 ifeq ($(WERROR),1)
