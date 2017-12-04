@@ -32,7 +32,7 @@
  * \addtogroup samd21
  * @{
  *
- * \defgroup samd21-PM samd21 Generic Clock Controller
+ * \defgroup samd21-gclk samd21 Generic Clock Controller
  *
  * Driver for the samd21 Generic Clock Controller
  * @{
@@ -154,6 +154,8 @@
 #define GCLK_GENCTRL_RESET					0x00000000 /**< Default state after reset */
 #define GCLK_GENCTRL_OFFSET					0x4 /**< Address offset */
 
+/** @} */
+
 
 /*---------------------------------------------------------------------------*/
 /** \name Generic clock generator control bit masks
@@ -171,6 +173,8 @@
 #define GCLK_GENDIV_GCLKGEN8				0x00000000 /**< Generic clock generator 8 */
 #define GCLK_GENDIV_RESET					0x00000000 /**< Default state after reset */
 #define GCLK_GENDIV_OFFSET					0x8 /**< Address offset */
+
+/** @} */
 
 
 #endif /* GCLK_H_ */
