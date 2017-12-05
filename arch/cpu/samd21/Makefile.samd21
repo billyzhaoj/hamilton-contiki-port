@@ -6,11 +6,17 @@ OBJCOPY = arm-none-eabi-objcopy
 OBJDUMP = arm-none-eabi-objdump
 NM      = arm-none-eabi-nm
 
+LDSCRIPT := $(CONTIKI_CPU)/ld/samd21.ld
+
 CFLAGS += -mcpu=cortex-m0plus -mthumb -mlittle-endian
 CFLAGS += -ffunction-sections -fdata-sections
 CFLAGS += -fshort-enums -fomit-frame-pointer -fno-strict-aliasing
 CFLAGS += -Wall -DCMSIS_DEV_HDR=\"samd21_cm0plus.h\"
 LDFLAGS += -specs=nosys.specs
+LDFLAGS += -mcpu=cortex-m0plus -mthumb -nostartfiles
+LDFLAGS += -T $(LDSCRIPT)
+LDFLAGS += -Wl,--gc-sections,--sort-section=alignment
+LDFLAGS += -Wl,-Map=$(@:.elf=-$(TARGET).map),--cref,--no-warn-mismatch
 
 
 ifeq ($(WERROR),1)
@@ -30,3 +36,4 @@ CONTIKI_SOURCEFILES += $(CONTIKI_CPU_SOURCEFILES)
 
 MODULES += lib/newlib arch/cpu/arm/common/sys
 
+###   LINKER_SCRIPT := $(CONTIKI_CPU)/ld/nrf52.ld
