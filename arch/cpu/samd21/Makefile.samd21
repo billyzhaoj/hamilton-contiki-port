@@ -36,4 +36,47 @@ CONTIKI_SOURCEFILES += $(CONTIKI_CPU_SOURCEFILES)
 
 MODULES += lib/newlib arch/cpu/arm/common/sys
 
-###   LINKER_SCRIPT := $(CONTIKI_CPU)/ld/nrf52.ld
+.SECONDEXPANSION:
+
+### Don't treat the .elf as intermediate
+.PRECIOUS: %.elf %.hex %.bin
+
+### Always re-build ieee-addr.o in case the command line passes a new NODEID
+FORCE:
+
+$(OBJECTDIR)/ieee-addr.o: ieee-addr.c FORCE | $(OBJECTDIR)
+	$(TRACE_CC)
+	$(Q)$(CC) $(CFLAGS) -c $< -o $@
+
+### Compilation rules
+CUSTOM_RULE_LINK=1
+
+%.elf: $(CPU_STARTFILES) $$(CONTIKI_OBJECTFILES) %.co $(PROJECT_OBJECTFILES) $(PROJECT_LIBRARIES) $(LDSCRIPT)
+	$(TRACE_LD)
+	$(Q)$(LD) $(LDFLAGS) ${filter-out $(LDSCRIPT) %.a,$^} ${filter %.a,$^} $(TARGET_LIBFILES) -o $@
+
+%.hex: %.elf
+	$(OBJCOPY) -O ihex $< $@
+
+%.bin: %.elf
+	$(OBJCOPY) $(OBJCOPY_FLAGS) $< $@
+
+%.lst: %.elf
+	$(OBJDUMP) $(OBJDUMP_FLAGS) $< > $@
+
+### We don't really need the .hex and .bin for the .$(TARGET) but let's make
+### sure they get built
+%.$(TARGET): %.elf %.hex %.bin
+	cp $< $@
+
+### This rule is used to generate the correct linker script
+# LDGENFLAGS += $(CFLAGS)
+# LDGENFLAGS += -imacros "contiki-conf.h" -imacros "dev/cc2538-dev.h"
+# LDGENFLAGS += -imacros "dev/flash.h" -imacros "cfs-coffee-arch.h"
+# LDGENFLAGS += -x c -P -E
+
+# NB: Assumes LDSCRIPT was not overridden and is in $(OBJECTDIR)
+# $(LDSCRIPT): $(SOURCE_LDSCRIPT) FORCE | $(OBJECTDIR)
+# 	$(TRACE_CC)
+# 	$(Q)$(CC) $(LDGENFLAGS) $< | grep -v '^\s*#\s*pragma\>' > $@
+
