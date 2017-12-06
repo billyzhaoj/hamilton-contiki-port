@@ -48,7 +48,7 @@
 
 #include <stdint.h>
 
-#define GIPO_BASE				0x41004400 /**< Base GPIO/PORT address */
+#define GPIO_BASE				0x41004400 /**< Base GPIO/PORT address */
 
 #define GPIO_A					0x00 /**< GPIO group A offset */
 

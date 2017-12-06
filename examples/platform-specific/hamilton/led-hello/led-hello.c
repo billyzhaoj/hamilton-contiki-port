@@ -29,7 +29,7 @@ PROCESS_THREAD(hello_world_process, ev, data)
   // etimer_set(&et_hello, CLOCK_SECOND * 4);
   // count = 0;
 
-  // while(1) {
+  while(1) {
   //   PROCESS_WAIT_EVENT();
 
     // if(ev == PROCESS_EVENT_TIMER) {
@@ -39,7 +39,8 @@ PROCESS_THREAD(hello_world_process, ev, data)
     //   etimer_reset(&et_hello);
     // }
     leds_on(LEDS_ALL);
-  // }
+//    printf("Fucking fuckity fuck fuck");
+  }
 
   PROCESS_END();
 }
