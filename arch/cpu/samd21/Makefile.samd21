@@ -61,8 +61,9 @@ CFLAGS += -ffunction-sections -fdata-sections
 CFLAGS += -fshort-enums -fomit-frame-pointer -fno-strict-aliasing
 CFLAGS += -Wall -DCMSIS_DEV_HDR=\"samd21_cm0plus.h\"
 CONTIKI_SOURCEFILES += $(CONTIKI_CPU_SOURCEFILES)
-LDFLAGS += -specs=nosys.specs
-LDFLAGS += -mcpu=cortex-m0plus -mthumb  -nostartfiles
+#LDFLAGS += -specs=nosys.specs
+#LDFLAGS += -mcpu=cortex-m0plus -mthumb  -nostartfiles
+#LDFLAGS +=  -nostartfiles
 # LDFLAGS += -T $(LDSCRIPT)
 LDFLAGS += -Wl,--gc-sections,--sort-section=alignment
 # LDFLAGS += -Wl,-Map=$(@:.elf=-$(TARGET).map),--cref,--no-warn-mismatch
