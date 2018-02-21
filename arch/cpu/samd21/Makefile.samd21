@@ -62,7 +62,8 @@ CFLAGS += -fshort-enums -fomit-frame-pointer -fno-strict-aliasing
 CFLAGS += -Wall -DCMSIS_DEV_HDR=\"samd21_cm0plus.h\"
 CONTIKI_SOURCEFILES += $(CONTIKI_CPU_SOURCEFILES)
 #LDFLAGS += -specs=nosys.specs
-#LDFLAGS += -mcpu=cortex-m0plus -mthumb  -nostartfiles
+#LDFLAGS += --specs=nosys.specs
+LDFLAGS += -mcpu=cortex-m0plus -mthumb -nostartfiles
 #LDFLAGS +=  -nostartfiles
 # LDFLAGS += -T $(LDSCRIPT)
 LDFLAGS += -Wl,--gc-sections,--sort-section=alignment
@@ -146,8 +147,8 @@ AR              := $(CROSS)ar
 AS              := $(CROSS)as
 CC              := $(CROSS)gcc
 CPP             := $(CROSS)gcc -E
-CXX             := $(CROSS)g++
-LD              := $(CROSS)g++
+CXX             := $(CROSS)gcc
+LD              := $(CROSS)gcc
 NM              := $(CROSS)nm
 OBJCOPY         := $(CROSS)objcopy
 OBJDUMP         := $(CROSS)objdump
@@ -314,11 +315,11 @@ cflags-gnu-y += -Dprintf=iprintf
 ldflags-gnu-y   += --specs=nano.specs
 
 # Garbage collect unreferred sections when linking.
-ldflags-gnu-y   += -Wl,--gc-sections
+#ldflags-gnu-y   += -Wl,--gc-sections
 
 # Use the linker script if provided by the project.
 ifneq ($(strip $(linker_script)),)
-ldflags-gnu-y   += -Wl,-T $(linker_script)
+ldflags-gnu-y   += -Wl,-t -Wl,-T $(linker_script)
 endif
 
 # Output a link map file and a cross reference table
@@ -468,7 +469,8 @@ ifeq ($(target_type),elf)
 # if the common Makefile.sam.in or project config.mk is changed.
 $(target): $(linker_script) $(MAKEFILE_PATH) config.mk $(obj-y)
 	@echo $(MSG_LINKING)
-	$(Q)$(LD) $(l_flags) $(obj-y) $(libflags-gnu-y) -o $@
+	$(Q)$(LD) $(l_flags) $(LDFLAGS) obj_hamilton/*.o $(libflags-gnu-y) -o $@
+	#$(Q)$(LD) $(l_flags) $(LDFLAGS) $(obj-y) obj_hamilton/*.o $(libflags-gnu-y) -o $@
 	@echo $(MSG_SIZE)
 	$(Q)$(SIZE) -Ax $@
 	$(Q)$(SIZE) -Bx $@
