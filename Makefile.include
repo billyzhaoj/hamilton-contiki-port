@@ -241,6 +241,7 @@ clean:
 	-rm -f *~ *core core *.srec \
 	*.lst *.map \
 	*.cprg *.bin *.data contiki*.a *.firmware core-labels.S *.ihex *.ini \
+	*.elf *.hex *.$(TARGET) \
 	*.ce *.co
 	rm -rf $(CLEAN)
 	-rm -rf $(OBJECTDIR)
