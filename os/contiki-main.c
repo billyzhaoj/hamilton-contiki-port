@@ -70,16 +70,16 @@ main(int argc, char **argv)
 main(void)
 {
 #endif
-  platform_init_stage_one();
+  //platform_init_stage_one();
 
   clock_init();
-  rtimer_init();
+  //rtimer_init();
   process_init();
   process_start(&etimer_process, NULL);
   ctimer_init();
-  watchdog_init();
+  //watchdog_init();
 
-  energest_init();
+  //energest_init();
 
   platform_init_stage_two();
 
@@ -90,7 +90,7 @@ main(void)
   LOG_INFO(" MAC: ");
   LOG_INFO_("%s\n", NETSTACK_MAC.name);
 
-  netstack_init();
+  //netstack_init();
 
   LOG_INFO("Link-layer address ");
   LOG_INFO_LLADDR(&linkaddr_node_addr);
