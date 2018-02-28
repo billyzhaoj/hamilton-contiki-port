@@ -28,4 +28,8 @@
 #define PLATFORM_HAS_BUTTON	1
 
 
+struct select_callback {
+      int  (* set_fd)(fd_set *fdr, fd_set *fdw);
+        void (* handle_fd)(fd_set *fdr, fd_set *fdw);
+};
 #endif /* __PLATFORM_CONF_H__ */

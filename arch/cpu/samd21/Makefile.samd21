@@ -13,7 +13,7 @@ CFLAGS += -ffunction-sections -fdata-sections
 CFLAGS += -fshort-enums -fomit-frame-pointer -fno-strict-aliasing
 CFLAGS += -Wall -DCMSIS_DEV_HDR=\"samd21_cm0plus.h\"
 LDFLAGS += -specs=nosys.specs
-LDFLAGS += -mcpu=cortex-m0plus -mthumb -nostartfiles
+LDFLAGS += -mcpu=cortex-m0plus -mthumb #-nostartfiles
 LDFLAGS += -T $(LDSCRIPT)
 LDFLAGS += -Wl,--gc-sections,--sort-section=alignment
 LDFLAGS += -Wl,-Map=$(@:.elf=-$(TARGET).map),--cref,--no-warn-mismatch
@@ -24,13 +24,13 @@ CFLAGS += -Werror
 endif
 
 ### CPU-dependent directories
-CONTIKI_CPU_DIRS = ../arm/common/CMSIS . dev usb usb/common usb/common/cdc-acm
+CONTIKI_CPU_DIRS = ../arm/common/CMSIS . dev usb usb/common usb/common/cdc-acm ./headers
 
 ### Use the existing debug I/O in arch/cpu/arm/common
 CONTIKI_CPU_DIRS += ../arm/common/dbg-io
 
 ### CPU-dependent source files
-CONTIKI_CPU_SOURCEFILES += clock.c rtimer-arch.c
+CONTIKI_CPU_SOURCEFILES += clock.c rtimer-arch.c startup_samr21.c
 
 CONTIKI_SOURCEFILES += $(CONTIKI_CPU_SOURCEFILES)
 

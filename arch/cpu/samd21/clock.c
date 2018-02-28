@@ -1,39 +1,18 @@
 #include <stdio.h>
 #include "contiki.h"
 #include "clock.h"
-
+#include "headers/samr21e18a.h"
 
 static volatile unsigned long seconds;
 static volatile clock_time_t ticks;
 
-#define RELOAD_VALUE		((F_CPU / CLOCK_CONF_SECOND) - 1)
 
-void
-SysTick_Handler(void)
-{
-  ticks++;
-  if((ticks % CLOCK_SECOND) == 0)
-  {
-    seconds++;
-  }
-}
+#define RELOAD_VALUE		((F_CPU / CLOCK_CONF_SECOND) - 1)
 
 void
 clock_init(void)
 {
-  ticks = 0;
-  seconds = 0;
-
-/* TBH, this may not be the right config */
-// SysTick_Config(RELOAD_VALUE); /* may work better */
-
-  // SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK);
-
-  // SysTick_SetReload(RELOAD_VALUE);
-
-  // SysTick_ITConfig(ENABLE);
-
-  // SysTick_CounterCmd(SysTick_Counter_Enable);
+  SysTick_Config(.1);
 }
 
 clock_time_t
@@ -68,6 +47,3 @@ clock_wait(clock_time_t delay)
   start = clock_time();
   while(clock_time() - start < delay);
 }
-
-
-

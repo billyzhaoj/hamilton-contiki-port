@@ -4,17 +4,21 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <sys/select.h>
+#include <errno.h>
 
+#define SELECT_MAX 8 
 void
 platform_init_stage_one(void)
 {
-	//unsigned long* p;
-	//p = (unsigned long*)0x41004408;
-	//*p = 0x00080000;
 
-	//unsigned long* z;
-	//z = (unsigned long*)0x41004408;
-	//*z = 0x00080000;
+
+
+
+
+
+
 }
 
 void
@@ -34,3 +38,14 @@ platform_idle(void)
 {
 
 }
+
+void
+platform_process_args(int argc, char** argv)
+{
+}
+
+void
+platform_main_loop(void)
+{
+}
+
