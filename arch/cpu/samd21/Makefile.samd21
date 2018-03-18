@@ -59,7 +59,7 @@ CUSTOM_RULE_LINK=1
 	$(OBJCOPY) -O ihex $< $@
 
 %.bin: %.elf
-	$(OBJCOPY) $(OBJCOPY_FLAGS) $< $@
+	$(OBJCOPY) -O binary --gap-fill 0xff $< $@
 
 %.lst: %.elf
 	$(OBJDUMP) $(OBJDUMP_FLAGS) $< > $@
