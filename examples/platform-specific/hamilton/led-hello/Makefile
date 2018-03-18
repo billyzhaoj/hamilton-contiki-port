@@ -22,4 +22,3 @@ flash:
 	$(FLASHER) . led-hello-flash.bin
 term:
 	$(RTTTERM)
-
