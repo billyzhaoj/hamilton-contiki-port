@@ -15,7 +15,7 @@ CFLAGS += -mcpu=cortex-m3 -mthumb -mlittle-endian
 CFLAGS += -ffunction-sections -fdata-sections
 CFLAGS += -fshort-enums -fomit-frame-pointer -fno-strict-aliasing
 CFLAGS += -Wall -DCMSIS_DEV_HDR=\"cc2538_cm3.h\"
-LDFLAGS += -mcpu=cortex-m3 -mthumb -nostartfiles
+LDFLAGS += -mcpu=cortex-m3 -t -mthumb -nostartfiles
 LDFLAGS += -T $(LDSCRIPT)
 LDFLAGS += -Wl,--gc-sections,--sort-section=alignment
 LDFLAGS += -Wl,-Map=$(@:.elf=-$(TARGET).map),--cref,--no-warn-mismatch
@@ -23,7 +23,7 @@ OBJCOPY_FLAGS += -O binary --gap-fill 0xff
 OBJDUMP_FLAGS += --disassemble --source --disassembler-options=force-thumb
 
 ifeq ($(WERROR),1)
-CFLAGS += -Werror
+#CFLAGS += -Werror
 endif
 
 ### Are we building with code size optimisations?

@@ -79,4 +79,3 @@ CUSTOM_RULE_LINK=1
 # $(LDSCRIPT): $(SOURCE_LDSCRIPT) FORCE | $(OBJECTDIR)
 # 	$(TRACE_CC)
 # 	$(Q)$(CC) $(LDGENFLAGS) $< | grep -v '^\s*#\s*pragma\>' > $@
-
