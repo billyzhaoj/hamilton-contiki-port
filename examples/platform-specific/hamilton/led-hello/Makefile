@@ -11,16 +11,12 @@ all: $(CONTIKI_PROJECT)
 
 CONTIKI = ../../../..
 include $(CONTIKI)/Makefile.include
-
-
-
 .PHONY: debug, debug-server, flash, term
-	debug: 
-		$(DEBUGGER) . led-hello.elf
+debug: 
+	$(DEBUGGER) . led-hello.elf
 debug-server:
-		$(DEBUGSERVER)
-
+	$(DEBUGSERVER)
 flash:
-		$(FLASHER) . led-hello.bin
+	$(FLASHER) . led-hello.bin
 term:
-		$(RTTTERM)
+	$(RTTTERM)
