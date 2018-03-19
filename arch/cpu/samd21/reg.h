@@ -44,7 +44,7 @@
 #ifndef REG_H_
 #define REG_H_
 
-#define REG(x)         (*((volatile unsigned long *)(x)))
+#define REG(x)         (*((volatile unsigned long long *)(x)))
 #define REG_H(x)       (*((volatile unsigned short *)(x)))
 #define REG_B(x)       (*((volatile unsigned char *)(x)))
 

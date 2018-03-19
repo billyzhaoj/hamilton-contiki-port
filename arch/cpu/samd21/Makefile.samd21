@@ -8,7 +8,7 @@ NM      = arm-none-eabi-nm
 
 LDSCRIPT := $(CONTIKI_CPU)/ld/samd21.ld
 
-CFLAGS += -mcpu=cortex-m0plus -mthumb -mlittle-endian -g
+CFLAGS += -mcpu=cortex-m0plus -mthumb -mlittle-endian -g3
 CFLAGS += -ffunction-sections -fdata-sections
 CFLAGS += -fshort-enums -fomit-frame-pointer -fno-strict-aliasing
 CFLAGS += -Wall -DCMSIS_DEV_HDR=\"samd21_cm0plus.h\"
