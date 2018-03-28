@@ -6,16 +6,15 @@
 static volatile unsigned long seconds;
 static volatile clock_time_t ticks;
 
-#define CLOCK_CORECLOCK     (32000000U)
+#define CLOCK_CORECLOCK     (48000000U)
 #define WAITSTATES          ((CLOCK_CORECLOCK - 1) / 24000000)
-#define RELOAD_VALUE		((F_CPU / CLOCK_CONF_SECOND) - 1)
 #define CLOCK_OSCULP32K      32768U
 
 void
 clock_init(void)
 {
   //Configure clock for systick period	
-  SysTick_Config(.1);
+  //SysTick_Config(.1);
   // enable clocks for the power, sysctrl and gclk modules 
   PM->APBAMASK.reg = (PM_APBAMASK_PM | PM_APBAMASK_SYSCTRL | PM_APBAMASK_GCLK); 
   PM->APBBMASK.reg |= PM_APBBMASK_NVMCTRL; 
@@ -76,13 +75,13 @@ clock_init(void)
   while (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY) {}
 
 
-  /* setup generic clock 1 as 8MHz for timer.c */
-  GCLK->GENDIV.reg = (GCLK_GENDIV_DIV(CLOCK_CORECLOCK / 8000000ul) |
-                      GCLK_GENDIV_ID(1));
-  GCLK->GENCTRL.reg = (GCLK_GENCTRL_GENEN |
-                       GCLK_GENCTRL_SRC_DFLL48M |
-                       GCLK_GENCTRL_ID(1));
-
+//  /* setup generic clock 1 as 8MHz for timer.c */
+//  GCLK->GENDIV.reg = (GCLK_GENDIV_DIV(CLOCK_CORECLOCK / 8000000ul) |
+//                      GCLK_GENDIV_ID(1));
+//  GCLK->GENCTRL.reg = (GCLK_GENCTRL_GENEN |
+//                       GCLK_GENCTRL_SRC_DFLL48M |
+//                       GCLK_GENCTRL_ID(1));
+//
 
 
   /* OSC8M is turned on by default and feeds GCLK0.

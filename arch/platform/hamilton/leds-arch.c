@@ -19,7 +19,8 @@ void leds_arch_init(void)
 	REG(GPIO_BASE + GPIO_DIRSET+GPIO_DIRCLR_DIRCLR);
 	REG((GPIO_BASE + GPIO_DIRSET+GPIO_DIRSET_DIRSET)) |= GPIO_PIN_MASK(LED_PIN);
 
-	REG((GPIO_BASE+GPIO_OUTSET+GPIO_OUT_OUT)) |= GPIO_PIN_MASK(LED_PIN);
+	REG((GPIO_BASE+GPIO_OUTTGL+GPIO_OUT_OUT)) |= GPIO_PIN_MASK(LED_PIN);
+
 	REG((GPIO_BASE+GPIO_OUTCLR+GPIO_OUT_OUT)) |= GPIO_PIN_MASK(LED_PIN);
 }
 unsigned char leds_arch_get(void)
@@ -30,10 +31,10 @@ unsigned char leds_arch_get(void)
 void leds_arch_set(unsigned char leds)
 { 
 
-    leds_arch_init();
+    //leds_arch_init();
 	if(leds > 0)
-	{
-		REG((GPIO_BASE+GPIO_OUTTGL+GPIO_OUT_OUT)) |= GPIO_PIN_MASK(LED_PIN);
+	{ 
+	    REG((GPIO_BASE+GPIO_OUTSET+GPIO_OUT_OUT)) |= GPIO_PIN_MASK(LED_PIN);
 	}
 	else
 	{
