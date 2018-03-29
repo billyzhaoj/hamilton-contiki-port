@@ -62,8 +62,8 @@
 
 #include "contiki.h"
 #include "dev/gptimer.h"
-
-#define RTIMER_ARCH_SECOND 32768
+#include "clock.h"
+#define RTIMER_ARCH_SECOND CLOCK_OSCULP32K
 
 /* Do the math in 32bits to save precision.
  * Round to nearest integer rather than truncate. */

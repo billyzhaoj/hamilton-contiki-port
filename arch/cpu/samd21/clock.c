@@ -9,12 +9,13 @@ static volatile clock_time_t ticks;
 #define CLOCK_CORECLOCK     (48000000U)
 #define WAITSTATES          ((CLOCK_CORECLOCK - 1) / 24000000)
 #define CLOCK_OSCULP32K      32768U
-
+#define TICKS_SEC           100
+#define SYSTICK_PERIOD      CLOCK_CORECLOCK / TICKS_SEC
 void
 clock_init(void)
 {
   //Configure clock for systick period	
-  //SysTick_Config(.1);
+  SysTick_Config(SYSTICK_PERIOD);
   // enable clocks for the power, sysctrl and gclk modules 
   PM->APBAMASK.reg = (PM_APBAMASK_PM | PM_APBAMASK_SYSCTRL | PM_APBAMASK_GCLK); 
   PM->APBBMASK.reg |= PM_APBBMASK_NVMCTRL; 

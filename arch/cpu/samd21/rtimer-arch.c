@@ -32,8 +32,9 @@
 #include "contiki.h"
 #include "headers/samr21e18a.h"
 #include <stdint.h>
+#include "os/sys/rtimer.h"
 
-#define TIMER_2_DEV RTC->MODE0
+
 static volatile rtimer_clock_t next_trigger;
 
 
@@ -54,6 +55,8 @@ rtimer_arch_init(void)
     /* Configure RTT as 32bit counter with no prescaler (32.768kHz) no clear on match compare */
     TIMER_2_DEV.CTRL.reg = (RTC_MODE0_CTRL_MODE_COUNT32 | RTC_MODE0_CTRL_PRESCALER_DIV1);
     while (GCLK->STATUS.bit.SYNCBUSY) {}
+    /* Timer2 init */
+    NVIC_EnableIRQ(RTC_IRQn);
     /* Timer2 Start */
     TIMER_2_DEV.CTRL.bit.ENABLE = 1;
     while (GCLK->STATUS.bit.SYNCBUSY) {}
@@ -62,15 +65,9 @@ rtimer_arch_init(void)
 void
 rtimer_arch_schedule(rtimer_clock_t t)
 {
-	rtimer_clock_t now;
-	now = RTIMER_NOW();
-
-	if((int32_t)(t-now) < 7)
-	{
-		t = now + 7;
-	}
-
-	next_trigger = t;
+    TIMER_2_DEV.INTFLAG.reg |= RTC_MODE0_INTFLAG_CMP0;
+    TIMER_2_DEV.COMP[0].reg = t;
+    TIMER_2_DEV.INTENSET.bit.CMP0 = 1;
 }
 
 rtimer_clock_t
@@ -88,7 +85,15 @@ rtimer_arch_now(void)
 }
 
 void
-rtimer_isr(void)
+RTC_Handler(void)
 {
-	return;
+    if ( TIMER_2_DEV.INTFLAG.bit.CMP0 && TIMER_2_DEV.INTENSET.bit.CMP0 ) {
+        TIMER_2_DEV.INTFLAG.reg |= RTC_MODE0_INTFLAG_CMP0;
+        TIMER_2_DEV.INTENCLR.reg = RTC_MODE0_INTENCLR_CMP0;
+    }
+    if ( TIMER_2_DEV.INTFLAG.bit.OVF && TIMER_2_DEV.INTENSET.bit.OVF ) {
+        TIMER_2_DEV.INTFLAG.reg |= RTC_MODE0_INTFLAG_OVF;
+        TIMER_2_DEV.INTENCLR.reg = RTC_MODE0_INTENCLR_OVF;
+    }
+    rtimer_run_next();
 }

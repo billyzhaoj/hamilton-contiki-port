@@ -34,6 +34,10 @@
 
 #include "contiki.h"
 
+
+#define TIMER_2_DEV RTC->MODE0 
+
+
 #define RTIMER_ARCH_SECOND 32768
 
 /* Do the math in 32bits to save precision.
