@@ -3,6 +3,11 @@
 #include "clock.h"
 #include "headers/samr21e18a.h"
 #include "component/pm.h"
+#include "sys/rtimer.h"
+#include "sys/etimer.h"
+
+
+#include "dev/leds.h"
 static volatile unsigned long seconds;
 static volatile clock_time_t ticks;
 
@@ -11,6 +16,8 @@ static volatile clock_time_t ticks;
 #define CLOCK_OSCULP32K      32768U
 #define TICKS_SEC           100
 #define SYSTICK_PERIOD      CLOCK_CORECLOCK / TICKS_SEC
+
+static volatile uint64_t rt_ticks_startup = 0, rt_ticks_epoch = 0;
 void
 clock_init(void)
 {
@@ -111,18 +118,50 @@ clock_init(void)
   }
 }
 
+
+void update_ticks(void)
+{
+  rtimer_clock_t now;
+  uint64_t prev_rt_ticks_startup, cur_rt_ticks_startup;
+  uint32_t cur_rt_ticks_startup_hi;
+
+  now = RTIMER_NOW();
+  prev_rt_ticks_startup = rt_ticks_startup;
+
+  cur_rt_ticks_startup_hi = prev_rt_ticks_startup >> 32;
+  if(now < (rtimer_clock_t)prev_rt_ticks_startup) {
+    cur_rt_ticks_startup_hi++;
+  }
+  cur_rt_ticks_startup = (uint64_t)cur_rt_ticks_startup_hi << 32 | now;
+  rt_ticks_startup = cur_rt_ticks_startup;
+
+  rt_ticks_epoch += cur_rt_ticks_startup - prev_rt_ticks_startup;
+
+  /*
+   * Inform the etimer library that the system clock has changed and that an
+   * etimer might have expired.
+   */
+  if(etimer_pending()) {
+    etimer_request_poll();
+  }
+
+
+
+}
+
+
 clock_time_t
 clock_time(void)
 {
-  return ticks;
+  return rt_ticks_startup / SYSTICK_PERIOD; 
 }
 
 unsigned long
 clock_seconds(void)
 {
-  return seconds;
+  return rt_ticks_epoch / CLOCK_CORECLOCK;
 }
-
+//TODO: Change
 void
 clock_delay(unsigned int delay)
 {
@@ -142,4 +181,9 @@ clock_wait(clock_time_t delay)
   clock_time_t start;
   start = clock_time();
   while(clock_time() - start < delay);
+}
+
+void
+SysTick_Handler(void) {
+    update_ticks();
 }

@@ -14,12 +14,6 @@ void
 platform_init_stage_one(void)
 {
 
-
-
-
-
-
-
 }
 
 void
