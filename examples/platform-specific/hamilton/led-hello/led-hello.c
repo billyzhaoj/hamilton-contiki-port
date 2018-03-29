@@ -43,10 +43,11 @@ PROCESS_THREAD(hello_world_process, ev, data)
 
 
   int i = 0;
-  rtimer_set(&rt, rt_for, 1, rt_callback, NULL);
+  //rtimer_set(&rt, rt_for, 1, rt_callback, NULL);
   while(1) {
-    etimer_set(&et_hello, 1* 4);
-    PROCESS_WAIT_EVENT();
+    etimer_set(&et_hello, CLOCK_SECOND);
+    PROCESS_YIELD_UNTIL(etimer_expired(&et_hello));
+    leds_on(LEDS_ALL);
     if(ev == PROCESS_EVENT_TIMER) {
        //printf("Sensor says #%u\n", count);
        count++;

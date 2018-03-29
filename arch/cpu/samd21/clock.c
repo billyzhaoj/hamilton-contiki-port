@@ -14,8 +14,7 @@ static volatile clock_time_t ticks;
 #define CLOCK_CORECLOCK     (48000000U)
 #define WAITSTATES          ((CLOCK_CORECLOCK - 1) / 24000000)
 #define CLOCK_OSCULP32K      32768U
-#define TICKS_SEC           100
-#define SYSTICK_PERIOD      CLOCK_CORECLOCK / TICKS_SEC
+#define SYSTICK_PERIOD      CLOCK_CORECLOCK / CLOCK_CONF_SECOND
 
 static volatile uint64_t rt_ticks_startup = 0, rt_ticks_epoch = 0;
 void
@@ -153,13 +152,13 @@ void update_ticks(void)
 clock_time_t
 clock_time(void)
 {
-  return rt_ticks_startup / SYSTICK_PERIOD; 
+  return rt_ticks_startup / (CLOCK_OSCULP32K / CLOCK_CONF_SECOND ); 
 }
 
 unsigned long
 clock_seconds(void)
 {
-  return rt_ticks_epoch / CLOCK_CORECLOCK;
+  return rt_ticks_epoch /( CLOCK_OSCULP32K/CLOCK_CONF_SECOND);
 }
 //TODO: Change
 void
