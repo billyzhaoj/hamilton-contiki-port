@@ -8,7 +8,6 @@
 #include <sys/select.h>
 #include <errno.h>
 #include "headers/samr21e18a.h"
-#include "rtc.h"
 
 #define SELECT_MAX 8 
 void
@@ -19,7 +18,7 @@ platform_init_stage_one(void)
 void
 platform_init_stage_two(void)
 {
-   rtc_init(); 
+    RTC_Handler();
 }
 
 void

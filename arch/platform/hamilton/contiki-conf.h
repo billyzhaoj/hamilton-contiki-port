@@ -74,7 +74,7 @@ int select_set_callback(int fd, const struct select_callback *callback);
 #define CLIF
 
 typedef unsigned long clock_time_t;
-typedef unsigned short rtimer_clock_t;
+typedef uint32_t rtimer_clock_t;
 
 /* These names are deprecated, use C99 names. */
 typedef uint8_t   u8_t;

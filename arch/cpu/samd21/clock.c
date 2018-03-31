@@ -184,5 +184,5 @@ clock_wait(clock_time_t delay)
 
 void
 SysTick_Handler(void) {
-    update_ticks();
+//    update_ticks();
 }

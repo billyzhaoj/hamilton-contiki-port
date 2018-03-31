@@ -35,7 +35,9 @@
 #include "os/sys/rtimer.h"
 
 
+static volatile rtimer_clock_t curtime;
 static volatile rtimer_clock_t next_trigger;
+static volatile rtimer_clock_t next_tick;
 
 
 void
@@ -65,10 +67,18 @@ rtimer_arch_init(void)
 void
 rtimer_arch_schedule(rtimer_clock_t t)
 {
+    next_trigger = t;
+    rtimer_arch_pseudo_schedule();
+}
+void
+rtimer_arch_pseudo_schedule(void)
+{
     TIMER_2_DEV.INTFLAG.reg |= RTC_MODE0_INTFLAG_CMP0;
-    TIMER_2_DEV.COMP[0].reg = t;
+    TIMER_2_DEV.COMP[0].reg = ( curtime < next_trigger 
+            && next_trigger < next_tick) ? next_trigger : next_tick;
     TIMER_2_DEV.INTENSET.bit.CMP0 = 1;
 }
+
 
 rtimer_clock_t
 rtimer_arch_next_trigger(void)
@@ -95,5 +105,10 @@ RTC_Handler(void)
         TIMER_2_DEV.INTFLAG.reg |= RTC_MODE0_INTFLAG_OVF;
         TIMER_2_DEV.INTENCLR.reg = RTC_MODE0_INTENCLR_OVF;
     }
+
+    update_ticks();
+    curtime = RTIMER_NOW();
+    next_tick= curtime + 32768/CLOCK_CONF_SECOND;
+    rtimer_arch_pseudo_schedule();
     rtimer_run_next();
 }

@@ -37,16 +37,16 @@ rt_callback(struct rtimer *t, void *ptr)
 PROCESS_THREAD(hello_world_process, ev, data)
 {
   PROCESS_BEGIN();
-  //rt_now = RTIMER_NOW();
-  //rt_for = rt_now + RTIMER_SECOND;
   count = 0;
 
 
   int i = 0;
-  //rtimer_set(&rt, rt_for, 1, rt_callback, NULL);
   while(1) {
     etimer_set(&et_hello, CLOCK_SECOND);
     PROCESS_YIELD_UNTIL(etimer_expired(&et_hello));
+
+    rt_now = RTIMER_NOW();
+    rtimer_set(&rt, rt_now + RTIMER_SECOND, RTIMER_SECOND, rt_callback, NULL);
     leds_on(LEDS_ALL);
     if(ev == PROCESS_EVENT_TIMER) {
        //printf("Sensor says #%u\n", count);
