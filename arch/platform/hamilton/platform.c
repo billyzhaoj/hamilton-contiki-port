@@ -8,24 +8,24 @@
 #include <sys/select.h>
 #include <errno.h>
 #include "headers/samr21e18a.h"
+#include "rtc.h"
 
 #define SELECT_MAX 8 
 void
 platform_init_stage_one(void)
 {
-
 }
 
 void
 platform_init_stage_two(void)
 {
-
+   rtc_init(); 
 }
 
 void
 platform_init_stage_three(void)
 {
-    leds_arch_init();
+    //leds_arch_init();
 }
 
 enum system_sleepmode {
@@ -66,9 +66,12 @@ void irq_restore(unsigned int state)
 void
 platform_idle(void)
 {
-    PM->SLEEP.reg = SYSTEM_SLEEPMODE_IDLE_0;
+
+    //PM->SLEEP.reg = SYSTEM_SLEEPMODE_IDLE_0;
     /* Sleeping */
-    SCB->SCR &= ~(SCB_SCR_SLEEPDEEP_Msk);
+
+    SCB->SCR |= (SCB_SCR_SLEEPDEEP_Msk);
+    //SCB->SCR &= ~(SCB_SCR_SLEEPDEEP_Msk);
     /* IRQ Disable */
     unsigned state = irq_disable() ;
     __DSB();

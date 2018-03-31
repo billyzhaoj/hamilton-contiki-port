@@ -70,7 +70,7 @@ main(int argc, char **argv)
 main(void)
 {
 #endif
-  //platform_init_stage_one();
+  platform_init_stage_one();
 
   clock_init();
   rtimer_init();
