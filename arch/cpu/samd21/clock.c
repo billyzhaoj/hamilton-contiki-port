@@ -21,7 +21,7 @@ void
 clock_init(void)
 {
   //Configure clock for systick period	
-  SysTick_Config(SYSTICK_PERIOD);
+  //SysTick_Config(SYSTICK_PERIOD);
   // enable clocks for the power, sysctrl and gclk modules 
   PM->APBAMASK.reg = (PM_APBAMASK_PM | PM_APBAMASK_SYSCTRL | PM_APBAMASK_GCLK); 
   PM->APBBMASK.reg |= PM_APBBMASK_NVMCTRL; 

@@ -45,9 +45,9 @@ PROCESS_THREAD(hello_world_process, ev, data)
     etimer_set(&et_hello, CLOCK_SECOND);
     PROCESS_YIELD_UNTIL(etimer_expired(&et_hello));
 
-    rt_now = RTIMER_NOW();
-    rtimer_set(&rt, rt_now + RTIMER_SECOND, RTIMER_SECOND, rt_callback, NULL);
-    leds_on(LEDS_ALL);
+    //rt_now = RTIMER_NOW();
+    //rtimer_set(&rt, rt_now + RTIMER_SECOND, RTIMER_SECOND, rt_callback, NULL);
+    //leds_on(LEDS_ALL);
     if(ev == PROCESS_EVENT_TIMER) {
        //printf("Sensor says #%u\n", count);
        count++;
