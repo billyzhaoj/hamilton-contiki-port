@@ -65,12 +65,6 @@ rtimer_arch_init(void)
 }
 
 void
-rtimer_arch_schedule(rtimer_clock_t t)
-{
-    next_trigger = t;
-    rtimer_arch_pseudo_schedule();
-}
-void
 rtimer_arch_pseudo_schedule(void)
 {
     TIMER_2_DEV.INTFLAG.reg |= RTC_MODE0_INTFLAG_CMP0;
@@ -79,6 +73,12 @@ rtimer_arch_pseudo_schedule(void)
     TIMER_2_DEV.INTENSET.bit.CMP0 = 1;
 }
 
+void
+rtimer_arch_schedule(rtimer_clock_t t)
+{
+    next_trigger = t;
+    rtimer_arch_pseudo_schedule();
+}
 
 rtimer_clock_t
 rtimer_arch_next_trigger(void)

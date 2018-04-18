@@ -47,6 +47,19 @@
 
 #include "contiki.h"
 #include "sys/process.h"
+#include "dev/leds.h"
+
+#include "dev/gpio.h"
+
+/**
+ * @name LED pin definitions
+ * @{
+ */
+#define LED_PORT            PORT->Group[0]
+#define LED_PIN             (19)
+
+#define LED_ON       (LED_PORT.OUTSET.reg = (1 << LED_PIN))
+#define LED_OFF      (LED_PORT.OUTCLR.reg = (1 << LED_PIN))
 
 /*
  * Pointer to the currently running process structure.
@@ -184,7 +197,7 @@ call_process(struct process *p, process_event_t ev, process_data_t data)
 
   if((p->state & PROCESS_STATE_RUNNING) &&
      p->thread != NULL) {
-    PRINTF("process: calling process '%s' with event %d\n", PROCESS_NAME_STRING(p), ev);
+    //PRINTF("process: calling process '%s' with event %d\n", PROCESS_NAME_STRING(p), ev);
     process_current = p;
     p->state = PROCESS_STATE_CALLED;
     ret = p->thread(&p->pt, ev, data);
@@ -270,28 +283,26 @@ do_event(void)
        and decrease the number of events. */
     fevent = (fevent + 1) % PROCESS_CONF_NUMEVENTS;
     --nevents;
-
     /* If this is a broadcast event, we deliver it to all events, in
        order of their priority. */
     if(receiver == PROCESS_BROADCAST) {
       for(p = process_list; p != NULL; p = p->next) {
 
-	/* If we have been requested to poll a process, we do this in
-	   between processing the broadcast event. */
-	if(poll_requested) {
-	  do_poll();
-	}
-	call_process(p, ev, data);
+	    /* If we have been requested to poll a process, we do this in
+	       between processing the broadcast event. */
+	    if(poll_requested) {
+	      do_poll();
+	    }
+	    call_process(p, ev, data);
       }
     } else {
       /* This is not a broadcast event, so we deliver it to the
-	 specified process. */
+	     specified process. */
       /* If the event was an INIT event, we should also update the
-	 state of the process. */
+	     state of the process. */
       if(ev == PROCESS_EVENT_INIT) {
-	receiver->state = PROCESS_STATE_RUNNING;
+	    receiver->state = PROCESS_STATE_RUNNING;
       }
-
       /* Make sure that the process actually is running. */
       call_process(receiver, ev, data);
     }
@@ -308,7 +319,6 @@ process_run(void)
 
   /* Process one event from the queue */
   do_event();
-
   return nevents + poll_requested;
 }
 /*---------------------------------------------------------------------------*/

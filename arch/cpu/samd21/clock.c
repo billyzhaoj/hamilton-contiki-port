@@ -6,15 +6,11 @@
 #include "sys/rtimer.h"
 #include "sys/etimer.h"
 
-
 #include "dev/leds.h"
+#include "periph_conf.h"
+
 static volatile unsigned long seconds;
 static volatile clock_time_t ticks;
-
-#define CLOCK_CORECLOCK     (48000000U)
-#define WAITSTATES          ((CLOCK_CORECLOCK - 1) / 24000000)
-#define CLOCK_OSCULP32K      32768U
-#define SYSTICK_PERIOD      CLOCK_CORECLOCK / CLOCK_CONF_SECOND
 
 static volatile uint64_t rt_ticks_startup = 0, rt_ticks_epoch = 0;
 void
@@ -81,16 +77,6 @@ clock_init(void)
   GCLK->CLKCTRL.reg = GCLK_CLKCTRL_CLKEN | GCLK_CLKCTRL_GEN_GCLK0;
   while (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY) {}
 
-
-//  /* setup generic clock 1 as 8MHz for timer.c */
-//  GCLK->GENDIV.reg = (GCLK_GENDIV_DIV(CLOCK_CORECLOCK / 8000000ul) |
-//                      GCLK_GENDIV_ID(1));
-//  GCLK->GENCTRL.reg = (GCLK_GENCTRL_GENEN |
-//                       GCLK_GENCTRL_SRC_DFLL48M |
-//                       GCLK_GENCTRL_ID(1));
-//
-
-
   /* OSC8M is turned on by default and feeds GCLK0.
    * OSC8M must be disabled after another oscillator is set 
    * to feed GCLK0 
@@ -143,9 +129,6 @@ void update_ticks(void)
   if(etimer_pending()) {
     etimer_request_poll();
   }
-
-
-
 }
 
 

@@ -48,6 +48,7 @@
 
 #include "sys/etimer.h"
 #include "sys/process.h"
+#include "dev/leds.h"
 
 static struct etimer *timerlist;
 static clock_time_t next_expiration;
@@ -115,23 +116,23 @@ PROCESS_THREAD(etimer_process, ev, data)
     
     for(t = timerlist; t != NULL; t = t->next) {
       if(timer_expired(&t->timer)) {
-	if(process_post(t->p, PROCESS_EVENT_TIMER, t) == PROCESS_ERR_OK) {
+    	if(process_post(t->p, PROCESS_EVENT_TIMER, t) == PROCESS_ERR_OK) {
 	  
-	  /* Reset the process ID of the event timer, to signal that the
-	     etimer has expired. This is later checked in the
-	     etimer_expired() function. */
-	  t->p = PROCESS_NONE;
-	  if(u != NULL) {
-	    u->next = t->next;
-	  } else {
-	    timerlist = t->next;
-	  }
-	  t->next = NULL;
-	  update_time();
-	  goto again;
-	} else {
-	  etimer_request_poll();
-	}
+	      /* Reset the process ID of the event timer, to signal that the
+	         etimer has expired. This is later checked in the
+	         etimer_expired() function. */
+	      t->p = PROCESS_NONE;
+	      if(u != NULL) {
+	        u->next = t->next;
+	      } else {
+	        timerlist = t->next;
+	      }
+	      t->next = NULL;
+	      update_time();
+	      goto again;
+	    } else {
+	      etimer_request_poll();
+	    }
       }
       u = t;
     }

@@ -1,5 +1,13 @@
 #include "contiki.h"
+#include "headers/samr21e18a.h"
 #include "dev/leds.h"
+#include "dev/spi.h"
+#include "dev/hdc1000.h"
+#include "dev/tmp006.h"
+#include "dev/fxos8700.h"
+#include "dev/apds9007.h"
+#include "dev/button.h"
+#include "radio/at86rf233.h"
 #include "sys/platform.h"
 #include <stdint.h>
 #include <string.h>
@@ -7,7 +15,6 @@
 #include <unistd.h>
 #include <sys/select.h>
 #include <errno.h>
-#include "headers/samr21e18a.h"
 
 #define SELECT_MAX 8 
 void
@@ -25,6 +32,18 @@ void
 platform_init_stage_three(void)
 {
     leds_arch_init();
+    apds9007_init();
+    button_init();
+
+    hdc1000_init();
+    fxos8700_init();
+    tmp006_init();
+#ifdef SPI_NUMOF
+    for (unsigned i = 0; i < SPI_NUMOF; i++) {
+        spi_init(SPI_DEV(i));
+    }
+#endif
+    radio_init();
 }
 
 enum system_sleepmode {

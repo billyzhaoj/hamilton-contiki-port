@@ -45,6 +45,18 @@
 #include "sys/platform.h"
 #include "sys/energest.h"
 #include "dev/watchdog.h"
+#include "dev/leds.h"
+#include "dev/gpio.h"
+
+/**
+ * @name LED pin definitions
+ * @{
+ */
+#define LED_PORT            PORT->Group[0]
+#define LED_PIN             (19)
+
+#define LED_ON       (LED_PORT.OUTSET.reg = (1 << LED_PIN))
+#define LED_OFF      (LED_PORT.OUTCLR.reg = (1 << LED_PIN))
 
 #if BUILD_WITH_ORCHESTRA
 #include "os/services/orchestra/orchestra.h"
@@ -60,6 +72,43 @@
 #include "sys/log.h"
 #define LOG_MODULE "Main"
 #define LOG_LEVEL LOG_LEVEL_MAIN
+
+/* hskim: for measurement of context switch time */
+/*PROCESS(temp_process, "temp process");
+AUTOSTART_PROCESSES(&temp_process);
+
+PROCESS(temp2_process, "temp2 process");
+AUTOSTART_PROCESSES(&temp2_process);
+
+PROCESS_THREAD(temp_process, ev, data)
+{
+  PROCESS_BEGIN();
+  while(1) {
+    LED_OFF;
+    while(process_post(&temp2_process, PROCESS_EVENT_TIMER, NULL) != PROCESS_ERR_OK);    
+    PROCESS_YIELD();
+    
+  }
+
+  PROCESS_END();
+}
+
+PROCESS_THREAD(temp2_process, ev, data)
+{
+  PROCESS_BEGIN();
+  process_start(&temp_process, NULL);
+  PROCESS_YIELD();
+
+  while(1) {
+    LED_ON;
+    while(process_post(&temp_process, PROCESS_EVENT_TIMER, NULL) != PROCESS_ERR_OK);
+    PROCESS_YIELD();
+    
+  }
+
+  PROCESS_END();
+}*/
+
 /*---------------------------------------------------------------------------*/
 int
 #if PLATFORM_MAIN_ACCEPTS_ARGS
@@ -122,7 +171,8 @@ main(void)
 //#endif /* BUILD_WITH_SHELL */
 
   autostart_start(autostart_processes);
-
+  /* hskim: for measurement of context switch time */
+  //process_start(&temp2_process, NULL);
   //watchdog_start();
 
 #if PLATFORM_PROVIDES_MAIN_LOOP
@@ -134,7 +184,6 @@ main(void)
       r = process_run();
       //watchdog_periodic();
     } while(r > 0);
-
     platform_idle();
   }
 #endif
