@@ -30,7 +30,7 @@ CONTIKI_CPU_DIRS = ../arm/common/CMSIS . dev usb usb/common usb/common/cdc-acm a
 CONTIKI_CPU_DIRS += ../arm/common/dbg-io
 
 ### CPU-dependent source files
-CONTIKI_CPU_SOURCEFILES += clock.c rtimer-arch.c startup_samr21.c spi.c at86rf233.c at86rf233_getset.c i2c.c at86rf233_internal.c gpio.c hdc1000.c fxos8700.c tmp006.c button.c adc.c apds9007.c
+CONTIKI_CPU_SOURCEFILES += watchdog.c clock.c rtimer-arch.c startup_samr21.c spi.c at86rf233.c at86rf233_getset.c i2c.c at86rf233_internal.c gpio.c hdc1000.c fxos8700.c tmp006.c button.c adc.c apds9007.c
 
 CONTIKI_SOURCEFILES += $(CONTIKI_CPU_SOURCEFILES)
 
