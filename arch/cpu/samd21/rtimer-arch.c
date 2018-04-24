@@ -30,8 +30,7 @@
  */
 
 #include "contiki.h"
-#include "headers/samr21e18a.h"
-#include <stdint.h>
+#include "asf_headers/samr21e18a.h"
 #include "os/sys/rtimer.h"
 
 

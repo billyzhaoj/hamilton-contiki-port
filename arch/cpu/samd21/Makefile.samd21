@@ -24,7 +24,7 @@ CFLAGS += -Werror
 endif
 
 ### CPU-dependent directories
-CONTIKI_CPU_DIRS = ../arm/common/CMSIS . dev usb usb/common usb/common/cdc-acm ./headers radio
+CONTIKI_CPU_DIRS = ../arm/common/CMSIS . dev usb usb/common usb/common/cdc-acm asf_headers radio
 
 ### Use the existing debug I/O in arch/cpu/arm/common
 CONTIKI_CPU_DIRS += ../arm/common/dbg-io

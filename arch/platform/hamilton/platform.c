@@ -1,5 +1,5 @@
 #include "contiki.h"
-#include "headers/samr21e18a.h"
+#include "asf_headers/samr21e18a.h"
 #include "dev/leds.h"
 #include "dev/spi.h"
 #include "dev/hdc1000.h"

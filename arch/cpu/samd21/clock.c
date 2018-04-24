@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "contiki.h"
 #include "clock.h"
-#include "headers/samr21e18a.h"
+#include "asf_headers/samr21e18a.h"
 #include "component/pm.h"
 #include "sys/rtimer.h"
 #include "sys/etimer.h"

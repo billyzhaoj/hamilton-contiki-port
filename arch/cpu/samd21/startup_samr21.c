@@ -40,7 +40,7 @@
  * \asf_license_stop
  *
  */
-#include "headers/samr21e18a.h"
+#include "asf_headers/samr21e18a.h"
 /* Initialize segments */
 extern uint32_t _sfixed;
 extern uint32_t _efixed;
