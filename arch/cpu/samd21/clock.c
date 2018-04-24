@@ -16,15 +16,15 @@ static volatile uint64_t rt_ticks_startup = 0, rt_ticks_epoch = 0;
 void
 clock_init(void)
 {
-  //Configure clock for systick period	
-  //SysTick_Config(SYSTICK_PERIOD);
-  // enable clocks for the power, sysctrl and gclk modules 
+  /* Enable clocks for the power, sysctrl and gclk modules */
   PM->APBAMASK.reg = (PM_APBAMASK_PM | PM_APBAMASK_SYSCTRL | PM_APBAMASK_GCLK); 
   PM->APBBMASK.reg |= PM_APBBMASK_NVMCTRL; 
   NVMCTRL->CTRLB.reg |= NVMCTRL_CTRLB_RWS(WAITSTATES);
   PM->APBBMASK.reg &= ~PM_APBBMASK_NVMCTRL; 
-  //ULP32_DFLL
-      /* reset the GCLK module so it is in a known state */
+
+  /*ULP32_DFLL*/
+
+  /* reset the GCLK module so it is in a known state */
   GCLK->CTRL.reg = GCLK_CTRL_SWRST;
   while (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY) {}
 
@@ -141,20 +141,7 @@ clock_time(void)
 unsigned long
 clock_seconds(void)
 {
-  return rt_ticks_epoch /( CLOCK_OSCULP32K/CLOCK_CONF_SECOND);
-}
-//TODO: Change
-void
-clock_delay(unsigned int delay)
-{
-  for(; delay>0; delay--)
-  {
-    unsigned int j;
-    for(j = 50; j>0; j--)
-    {
-      //__NOP();
-    }
-  }
+  return rt_ticks_epoch /(CLOCK_OSCULP32K / CLOCK_CONF_SECOND);
 }
 
 void
@@ -163,9 +150,4 @@ clock_wait(clock_time_t delay)
   clock_time_t start;
   start = clock_time();
   while(clock_time() - start < delay);
-}
-
-void
-SysTick_Handler(void) {
-//    update_ticks();
 }
