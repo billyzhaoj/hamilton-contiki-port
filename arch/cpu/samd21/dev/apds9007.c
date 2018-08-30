@@ -29,18 +29,18 @@
 #define APDS9007_STABILIZATION_TIME 20000UL
 
 int apds9007_set_active(void) {
-    gpio_write(APDS9007_PIN, 0);
-    return 0;
-} 
+  gpio_write(APDS9007_PIN, 0);
+  return 0;
+}
 
 int apds9007_set_idle(void) {
-    gpio_write(APDS9007_PIN, 1);
-    return 0;
+  gpio_write(APDS9007_PIN, 1);
+  return 0;
 }
 
 int apds9007_init(void) {
-    gpio_init(APDS9007_PIN, GPIO_OUT);
-    adc_init(APDS9007_ADC);
-    apds9007_set_idle();
-    return 0;
+  gpio_init(APDS9007_PIN, GPIO_OUT);
+  adc_init(APDS9007_ADC);
+  apds9007_set_idle();
+  return 0;
 }

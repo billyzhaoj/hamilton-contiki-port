@@ -76,9 +76,9 @@ typedef uint32_t gpio_t;
  */
 #define HAVE_GPIO_FLANK_T
 typedef enum {
-    GPIO_FALLING = 2,       /**< emit interrupt on falling flank */
-    GPIO_RISING = 1,        /**< emit interrupt on rising flank */
-    GPIO_BOTH = 3           /**< emit interrupt on both flanks */
+  GPIO_FALLING = 2,       /**< emit interrupt on falling flank */
+  GPIO_RISING = 1,        /**< emit interrupt on rising flank */
+  GPIO_BOTH = 3           /**< emit interrupt on both flanks */
 } gpio_flank_t;
 /** @} */
 #endif /* ndef DOXYGEN */
@@ -87,33 +87,33 @@ typedef enum {
  * @brief   Available MUX values for configuring a pin's alternate function
  */
 typedef enum {
-    GPIO_MUX_A = 0x0,       /**< select peripheral function A */
-    GPIO_MUX_B = 0x1,       /**< select peripheral function B */
-    GPIO_MUX_C = 0x2,       /**< select peripheral function C */
-    GPIO_MUX_D = 0x3,       /**< select peripheral function D */
-    GPIO_MUX_E = 0x4,       /**< select peripheral function E */
-    GPIO_MUX_F = 0x5,       /**< select peripheral function F */
-    GPIO_MUX_G = 0x6,       /**< select peripheral function G */
-    GPIO_MUX_H = 0x7,       /**< select peripheral function H */
+  GPIO_MUX_A = 0x0,       /**< select peripheral function A */
+  GPIO_MUX_B = 0x1,       /**< select peripheral function B */
+  GPIO_MUX_C = 0x2,       /**< select peripheral function C */
+  GPIO_MUX_D = 0x3,       /**< select peripheral function D */
+  GPIO_MUX_E = 0x4,       /**< select peripheral function E */
+  GPIO_MUX_F = 0x5,       /**< select peripheral function F */
+  GPIO_MUX_G = 0x6,       /**< select peripheral function G */
+  GPIO_MUX_H = 0x7,       /**< select peripheral function H */
 } gpio_mux_t;
 
 /**
  * @brief   Available values for SERCOM UART RX pad selection
  */
 typedef enum {
-    UART_PAD_RX_0 = 0x0,    /**< use pad 0 for RX line */
-    UART_PAD_RX_1 = 0x1,    /**< select pad 1 */
-    UART_PAD_RX_2 = 0x2,    /**< select pad 2 */
-    UART_PAD_RX_3 = 0x3,    /**< select pad 3 */
+  UART_PAD_RX_0 = 0x0,    /**< use pad 0 for RX line */
+  UART_PAD_RX_1 = 0x1,    /**< select pad 1 */
+  UART_PAD_RX_2 = 0x2,    /**< select pad 2 */
+  UART_PAD_RX_3 = 0x3,    /**< select pad 3 */
 } uart_rxpad_t;
 
 /**
  * @brief   Available values for SERCOM UART TX pad selection
  */
 typedef enum {
-    UART_PAD_TX_0             = 0x0,    /**< select pad 0 */
-    UART_PAD_TX_2             = 0x1,    /**< select pad 2 */
-    UART_PAD_TX_0_RTS_2_CTS_3 = 0x2,    /**< TX is pad 0, on top RTS on pad 2
+  UART_PAD_TX_0 = 0x0,    /**< select pad 0 */
+  UART_PAD_TX_2 = 0x1,    /**< select pad 2 */
+  UART_PAD_TX_0_RTS_2_CTS_3 = 0x2,    /**< TX is pad 0, on top RTS on pad 2
                                          *   and CTS on pad 3 */
 } uart_txpad_t;
 
@@ -121,43 +121,43 @@ typedef enum {
  * @brief   Available SERCOM UART flag selections
  */
 typedef enum {
-    UART_FLAG_NONE            = 0x0,    /**< No flags set */
-    UART_FLAG_RUN_STANDBY     = 0x1,    /**< run SERCOM in standby mode */
-    UART_FLAG_WAKEUP          = 0x2,    /**< wake from sleep on receive */
+  UART_FLAG_NONE = 0x0,    /**< No flags set */
+  UART_FLAG_RUN_STANDBY = 0x1,    /**< run SERCOM in standby mode */
+  UART_FLAG_WAKEUP = 0x2,    /**< wake from sleep on receive */
 } uart_flag_t;
 
 /**
  * @brief   UART device configuration
  */
 typedef struct {
-    SercomUsart *dev;       /**< pointer to the used UART device */
-    gpio_t rx_pin;          /**< pin used for RX */
-    gpio_t tx_pin;          /**< pin used for TX */
-    gpio_mux_t mux;         /**< alternative function for pins */
-    uart_rxpad_t rx_pad;    /**< pad selection for RX line */
-    uart_txpad_t tx_pad;    /**< pad selection for TX line */
-    uart_flag_t flags;      /**< set optional SERCOM flags */
-    uint32_t gclk_src;      /**< GCLK source which supplys SERCOM */
+  SercomUsart *dev;       /**< pointer to the used UART device */
+  gpio_t rx_pin;          /**< pin used for RX */
+  gpio_t tx_pin;          /**< pin used for TX */
+  gpio_mux_t mux;         /**< alternative function for pins */
+  uart_rxpad_t rx_pad;    /**< pad selection for RX line */
+  uart_txpad_t tx_pad;    /**< pad selection for TX line */
+  uart_flag_t flags;      /**< set optional SERCOM flags */
+  uint32_t gclk_src;      /**< GCLK source which supplys SERCOM */
 } uart_conf_t;
 
 /**
  * @brief   Available values for SERCOM SPI MISO pad selection
  */
 typedef enum {
-    SPI_PAD_MISO_0 = 0x0,       /**< use pad 0 for MISO line */
-    SPI_PAD_MISO_1 = 0x1,       /**< use pad 0 for MISO line */
-    SPI_PAD_MISO_2 = 0x2,       /**< use pad 0 for MISO line */
-    SPI_PAD_MISO_3 = 0x3,       /**< use pad 0 for MISO line */
+  SPI_PAD_MISO_0 = 0x0,       /**< use pad 0 for MISO line */
+  SPI_PAD_MISO_1 = 0x1,       /**< use pad 0 for MISO line */
+  SPI_PAD_MISO_2 = 0x2,       /**< use pad 0 for MISO line */
+  SPI_PAD_MISO_3 = 0x3,       /**< use pad 0 for MISO line */
 } spi_misopad_t;
 
 /**
  * @brief   Available values for SERCOM SPI MOSI and SCK pad selection
  */
 typedef enum {
-    SPI_PAD_MOSI_0_SCK_1 = 0x0, /**< use pad 0 for MOSI, pad 1 for SCK */
-    SPI_PAD_MOSI_2_SCK_3 = 0x1, /**< use pad 2 for MOSI, pad 3 for SCK */
-    SPI_PAD_MOSI_3_SCK_1 = 0x2, /**< use pad 3 for MOSI, pad 1 for SCK */
-    SPI_PAD_MOSI_0_SCK_3 = 0x3, /**< use pad 0 for MOSI, pad 3 for SCK */
+  SPI_PAD_MOSI_0_SCK_1 = 0x0, /**< use pad 0 for MOSI, pad 1 for SCK */
+  SPI_PAD_MOSI_2_SCK_3 = 0x1, /**< use pad 2 for MOSI, pad 3 for SCK */
+  SPI_PAD_MOSI_3_SCK_1 = 0x2, /**< use pad 3 for MOSI, pad 1 for SCK */
+  SPI_PAD_MOSI_0_SCK_3 = 0x3, /**< use pad 0 for MOSI, pad 3 for SCK */
 } spi_mosipad_t;
 
 /**
@@ -166,10 +166,10 @@ typedef enum {
  */
 #define HAVE_SPI_MODE_T
 typedef enum {
-    SPI_MODE_0 = 0x0,       /**< CPOL=0, CPHA=0 */
-    SPI_MODE_1 = 0x1,       /**< CPOL=0, CPHA=1 */
-    SPI_MODE_2 = 0x2,       /**< CPOL=1, CPHA=0 */
-    SPI_MODE_3 = 0x3        /**< CPOL=1, CPHA=1 */
+  SPI_MODE_0 = 0x0,       /**< CPOL=0, CPHA=0 */
+  SPI_MODE_1 = 0x1,       /**< CPOL=0, CPHA=1 */
+  SPI_MODE_2 = 0x2,       /**< CPOL=1, CPHA=0 */
+  SPI_MODE_3 = 0x3        /**< CPOL=1, CPHA=1 */
 } spi_mode_t;
 /** @} */
 
@@ -179,13 +179,13 @@ typedef enum {
  */
 #define HAVE_SPI_CLK_T
 typedef enum {
-    SPI_CLK_100KHZ =   100000U, /**< drive the SPI bus with 100KHz */
-    SPI_CLK_400KHZ =   400000U, /**< drive the SPI bus with 400KHz */
-    SPI_CLK_1MHZ   =  1000000U, /**< drive the SPI bus with 1MHz */
-    SPI_CLK_4MHZ   =  4000000U, /**< drive the SPI bus with 4MHz */
-    SPI_CLK_5MHZ   =  5000000U, /**< drive the SPI bus with 5MHz */
-    SPI_CLK_8MHZ   =  7500000U, /**< drive the SPI bus with 8MHz */
-    SPI_CLK_10MHZ  = 10000000U  /**< drive the SPI bus with 10MHz */
+  SPI_CLK_100KHZ = 100000U, /**< drive the SPI bus with 100KHz */
+  SPI_CLK_400KHZ = 400000U, /**< drive the SPI bus with 400KHz */
+  SPI_CLK_1MHZ = 1000000U, /**< drive the SPI bus with 1MHz */
+  SPI_CLK_4MHZ = 4000000U, /**< drive the SPI bus with 4MHz */
+  SPI_CLK_5MHZ = 5000000U, /**< drive the SPI bus with 5MHz */
+  SPI_CLK_8MHZ = 7500000U, /**< drive the SPI bus with 8MHz */
+  SPI_CLK_10MHZ = 10000000U  /**< drive the SPI bus with 10MHz */
 } spi_clk_t;
 /** @} */
 
@@ -193,15 +193,15 @@ typedef enum {
  * @brief   SPI device configuration
  */
 typedef struct {
-    SercomSpi *dev;         /**< pointer to the used SPI device */
-    gpio_t miso_pin;        /**< used MISO pin */
-    gpio_t mosi_pin;        /**< used MOSI pin */
-    gpio_t clk_pin;         /**< used CLK pin */
-    gpio_mux_t miso_mux;    /**< alternate function for MISO pin (mux) */
-    gpio_mux_t mosi_mux;    /**< alternate function for MOSI pin (mux) */
-    gpio_mux_t clk_mux;     /**< alternate function for CLK pin (mux) */
-    spi_misopad_t miso_pad; /**< pad to use for MISO line */
-    spi_mosipad_t mosi_pad; /**< pad to use for MOSI and CLK line */
+  SercomSpi *dev;         /**< pointer to the used SPI device */
+  gpio_t miso_pin;        /**< used MISO pin */
+  gpio_t mosi_pin;        /**< used MOSI pin */
+  gpio_t clk_pin;         /**< used CLK pin */
+  gpio_mux_t miso_mux;    /**< alternate function for MISO pin (mux) */
+  gpio_mux_t mosi_mux;    /**< alternate function for MOSI pin (mux) */
+  gpio_mux_t clk_mux;     /**< alternate function for CLK pin (mux) */
+  spi_misopad_t miso_pad; /**< pad to use for MISO line */
+  spi_mosipad_t mosi_pad; /**< pad to use for MOSI and CLK line */
 } spi_conf_t;
 
 /**
@@ -219,9 +219,8 @@ void gpio_init_mux(gpio_t pin, gpio_mux_t mux);
  *
  * @return              numeric id of the given SERCOM device
  */
-static inline int sercom_id(void *sercom)
-{
-    return ((((uint32_t)sercom) >> 10) & 0x7) - 2;
+static inline int sercom_id(void *sercom) {
+  return ((((uint32_t) sercom) >> 10) & 0x7) - 2;
 }
 
 /**
@@ -229,9 +228,8 @@ static inline int sercom_id(void *sercom)
  *
  * @param[in] sercom    SERCOM device
  */
-static inline void sercom_clk_en(void *sercom)
-{
-    PM->APBCMASK.reg |= (PM_APBCMASK_SERCOM0 << sercom_id(sercom));
+static inline void sercom_clk_en(void *sercom) {
+  PM->APBCMASK.reg |= (PM_APBCMASK_SERCOM0 << sercom_id(sercom));
 }
 
 /**
@@ -239,9 +237,8 @@ static inline void sercom_clk_en(void *sercom)
  *
  * @param[in] sercom    SERCOM device
  */
-static inline void sercom_clk_dis(void *sercom)
-{
-    PM->APBCMASK.reg &= ~(PM_APBCMASK_SERCOM0 << sercom_id(sercom));
+static inline void sercom_clk_dis(void *sercom) {
+  PM->APBCMASK.reg &= ~(PM_APBCMASK_SERCOM0 << sercom_id(sercom));
 }
 
 /**
@@ -250,19 +247,18 @@ static inline void sercom_clk_dis(void *sercom)
  * @param[in] sercom    SERCOM device
  * @param[in] gclk      Generator clock
  */
-static inline void sercom_set_gen(void *sercom, uint32_t gclk)
-{
-    GCLK->CLKCTRL.reg = (GCLK_CLKCTRL_CLKEN | gclk |
-                         (SERCOM0_GCLK_ID_CORE + sercom_id(sercom)));
-    while (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY) {}
+static inline void sercom_set_gen(void *sercom, uint32_t gclk) {
+  GCLK->CLKCTRL.reg = (GCLK_CLKCTRL_CLKEN | gclk |
+                       (SERCOM0_GCLK_ID_CORE + sercom_id(sercom)));
+  while (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY) {}
 }
 
 /**
  * @brief ADC Channel Configuration
  */
 typedef struct {
-    gpio_t pin;            /**< ADC channel pin */
-    uint32_t muxpos;       /**< ADC channel pin multiplexer value */
+  gpio_t pin;            /**< ADC channel pin */
+  uint32_t muxpos;       /**< ADC channel pin multiplexer value */
 } adc_conf_chan_t;
 
 
@@ -270,19 +266,19 @@ typedef struct {
  * @brief   Mapping of pins to EXTI lines, -1 means not EXTI possible
  */
 static const int8_t exti_config[2][32] = {
-    {-1, -1, -1, -1, -1, -1,  6,  7, -1,  9, 10, 11, -1, -1, 14, 15,
-     -1,  1,  2,  3, -1, -1, -1, -1, 12, 13, -1, 15,  8, -1, 10, 11},
-    { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-      0,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        {-1, -1, -1, -1, -1, -1, 6,  7,  -1, 9,  10, 11, -1, -1, 14, 15,
+                -1, 1, 2,  3,  -1, -1, -1, -1, 12, 13, -1, 15, 8,  -1, 10, 11},
+        {0,  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                0,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 };
 
 /**
  * @brief   Available ports on the SAMD21
  */
 enum {
-    PA = 0,                 /**< port A */
-    PB = 1,                 /**< port B */
-    PC = 2,                 /**< port C */
+  PA = 0,                 /**< port A */
+  PB = 1,                 /**< port B */
+  PC = 2,                 /**< port C */
 };
 
 /**
@@ -309,12 +305,12 @@ enum {
  */
 #define HAVE_GPIO_MODE_T
 typedef enum {
-    GPIO_IN    = GPIO_MODE(0, 1, 0),    /**< IN */
-    GPIO_IN_PD = GPIO_MODE(0, 1, 1),    /**< IN with pull-down */
-    GPIO_IN_PU = GPIO_MODE(1, 1, 1),    /**< IN with pull-up */
-    GPIO_OUT   = GPIO_MODE(0, 0, 0),    /**< OUT (push-pull) */
-    GPIO_OD    = 0xfe,                  /**< not supported by HW */
-    GPIO_OD_PU = 0xff                   /**< not supported by HW */
+  GPIO_IN = GPIO_MODE(0, 1, 0),    /**< IN */
+  GPIO_IN_PD = GPIO_MODE(0, 1, 1),    /**< IN with pull-down */
+  GPIO_IN_PU = GPIO_MODE(1, 1, 1),    /**< IN with pull-up */
+  GPIO_OUT = GPIO_MODE(0, 0, 0),    /**< OUT (push-pull) */
+  GPIO_OD = 0xfe,                  /**< not supported by HW */
+  GPIO_OD_PU = 0xff                   /**< not supported by HW */
 } gpio_mode_t;
 /** @} */
 #endif /* ndef DOXYGEN */
@@ -323,17 +319,17 @@ typedef enum {
  * @brief   PWM channel configuration data structure
  */
 typedef struct {
-    gpio_t pin;                 /**< GPIO pin */
-    gpio_mux_t mux;             /**< pin function multiplex value */
-    uint8_t chan;               /**< TCC channel to use */
+  gpio_t pin;                 /**< GPIO pin */
+  gpio_mux_t mux;             /**< pin function multiplex value */
+  uint8_t chan;               /**< TCC channel to use */
 } pwm_conf_chan_t;
 
 /**
  * @brief   PWM device configuration data structure
  */
 typedef struct {
-    Tcc *dev;                   /**< TCC device to use */
-    pwm_conf_chan_t chan[3];    /**< channel configuration */
+  Tcc *dev;                   /**< TCC device to use */
+  pwm_conf_chan_t chan[3];    /**< channel configuration */
 } pwm_conf_t;
 
 /**
@@ -343,9 +339,8 @@ typedef struct {
  *
  * @return              numeric id of the given SERCOM device
  */
-static inline int _sercom_id(SercomUsart *sercom)
-{
-    return ((((uint32_t)sercom) >> 10) & 0x7) - 2;
+static inline int _sercom_id(SercomUsart *sercom) {
+  return ((((uint32_t) sercom) >> 10) & 0x7) - 2;
 }
 
 /**
@@ -354,12 +349,12 @@ static inline int _sercom_id(SercomUsart *sercom)
  */
 #define HAVE_ADC_RES_T
 typedef enum {
-    ADC_RES_6BIT  = 0xff,                       /**< not supported */
-    ADC_RES_8BIT  = ADC_CTRLB_RESSEL_8BIT,      /**< ADC resolution: 8 bit */
-    ADC_RES_10BIT = ADC_CTRLB_RESSEL_10BIT,     /**< ADC resolution: 10 bit */
-    ADC_RES_12BIT = ADC_CTRLB_RESSEL_12BIT,     /**< ADC resolution: 12 bit */
-    ADC_RES_14BIT = 0xfe,                       /**< not supported */
-    ADC_RES_16BIT = 0xfd                        /**< not supported */
+  ADC_RES_6BIT = 0xff,                       /**< not supported */
+  ADC_RES_8BIT = ADC_CTRLB_RESSEL_8BIT,      /**< ADC resolution: 8 bit */
+  ADC_RES_10BIT = ADC_CTRLB_RESSEL_10BIT,     /**< ADC resolution: 10 bit */
+  ADC_RES_12BIT = ADC_CTRLB_RESSEL_12BIT,     /**< ADC resolution: 12 bit */
+  ADC_RES_14BIT = 0xfe,                       /**< not supported */
+  ADC_RES_16BIT = 0xfd                        /**< not supported */
 } adc_res_t;
 /** @} */
 #ifdef __cplusplus

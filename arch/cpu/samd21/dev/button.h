@@ -52,6 +52,7 @@ int button_init(void);
  * @return  Accumunlated pulse counts
  */
 int16_t button_read(void);
+
 #ifdef __cplusplus
 }
 #endif

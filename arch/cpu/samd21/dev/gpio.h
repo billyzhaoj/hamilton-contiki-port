@@ -60,8 +60,8 @@ typedef void (*gpio_cb_t)(void *arg);
  */
 #ifndef HAVE_GPIO_ISR_CTX_T
 typedef struct {
-    gpio_cb_t cb;           /**< interrupt callback */
-    void *arg;              /**< optional argument */
+  gpio_cb_t cb;           /**< interrupt callback */
+  void *arg;              /**< optional argument */
 } gpio_isr_ctx_t;
 #endif
 

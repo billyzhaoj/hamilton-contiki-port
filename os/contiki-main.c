@@ -70,6 +70,7 @@
 /*---------------------------------------------------------------------------*/
 /* Log configuration */
 #include "sys/log.h"
+
 #define LOG_MODULE "Main"
 #define LOG_LEVEL LOG_LEVEL_MAIN
 
@@ -116,8 +117,7 @@ main(int argc, char **argv)
 {
   platform_process_args(argc, argv);
 #else
-main(void)
-{
+main(void) {
 #endif
   platform_init_stage_one();
 
@@ -142,12 +142,13 @@ main(void)
 #if PLATFORM_PROVIDES_MAIN_LOOP
   platform_main_loop();
 #else
-  while(1) {
-    uint8_t r;
+  while (1) {
+    uint8_t
+    r;
     do {
       r = process_run();
       watchdog_periodic();
-    } while(r > 0);
+    } while (r > 0);
     platform_idle();
   }
 #endif

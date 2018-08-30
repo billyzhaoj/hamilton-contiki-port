@@ -54,98 +54,94 @@
 #define TMP006_CONVERSION_TIME  550000UL
 
 
-int tmp006_init(void)
-{
-    uint8_t reg[2];
-    uint16_t tmp;
+int tmp006_init(void) {
+  uint8_t reg[2];
+  uint16_t tmp;
 
-    if (TMP006_RATE > TMP006_CONFIG_CR_AS16) {
-        //LOG_ERROR("tmp006_init: invalid conversion rate!\n");
-        return -TMP006_ERROR_CONF;
-    }
+  if (TMP006_RATE > TMP006_CONFIG_CR_AS16) {
+    //LOG_ERROR("tmp006_init: invalid conversion rate!\n");
+    return -TMP006_ERROR_CONF;
+  }
 
-    /* setup the I2C bus */
-    i2c_acquire(TMP006_I2C);
-    if (i2c_init_master(TMP006_I2C, I2C_SPEED) < 0) {
-        i2c_release(TMP006_I2C);
-        //LOG_ERROR("tmp006_init: error initializing I2C bus\n");
-        return -TMP006_ERROR_BUS;
-    }
-    /* test device id */
-    if (i2c_read_regs(TMP006_I2C, TMP006_ADDR, TMP006_REGS_DEVICE_ID, reg, 2) != 2) {
-        i2c_release(TMP006_I2C);
-        //LOG_ERROR("tmp006_init: error reading device ID!\n");
-        return -TMP006_ERROR_BUS;
-    }
-    tmp = ((uint16_t)reg[0] << 8) | reg[1];
-    if (tmp != TMP006_DID_VALUE) {
-        return -TMP006_ERROR_DEV;
-    }
-    /* set conversion rate */
-    tmp = TMP006_CONFIG_CR(TMP006_RATE);
-    reg[0] = (tmp >> 8);
-    reg[1] = tmp;
-    if (i2c_write_regs(TMP006_I2C, TMP006_ADDR, TMP006_REGS_CONFIG, reg, 2) != 2) {
-        i2c_release(TMP006_I2C);
-        //LOG_ERROR("tmp006_init: error setting conversion rate!\n");
-        return -TMP006_ERROR_BUS;
-    }
+  /* setup the I2C bus */
+  i2c_acquire(TMP006_I2C);
+  if (i2c_init_master(TMP006_I2C, I2C_SPEED) < 0) {
     i2c_release(TMP006_I2C);
+    //LOG_ERROR("tmp006_init: error initializing I2C bus\n");
+    return -TMP006_ERROR_BUS;
+  }
+  /* test device id */
+  if (i2c_read_regs(TMP006_I2C, TMP006_ADDR, TMP006_REGS_DEVICE_ID, reg, 2) != 2) {
+    i2c_release(TMP006_I2C);
+    //LOG_ERROR("tmp006_init: error reading device ID!\n");
+    return -TMP006_ERROR_BUS;
+  }
+  tmp = ((uint16_t) reg[0] << 8) | reg[1];
+  if (tmp != TMP006_DID_VALUE) {
+    return -TMP006_ERROR_DEV;
+  }
+  /* set conversion rate */
+  tmp = TMP006_CONFIG_CR(TMP006_RATE);
+  reg[0] = (tmp >> 8);
+  reg[1] = tmp;
+  if (i2c_write_regs(TMP006_I2C, TMP006_ADDR, TMP006_REGS_CONFIG, reg, 2) != 2) {
+    i2c_release(TMP006_I2C);
+    //LOG_ERROR("tmp006_init: error setting conversion rate!\n");
+    return -TMP006_ERROR_BUS;
+  }
+  i2c_release(TMP006_I2C);
 
-    return TMP006_OK;
+  return TMP006_OK;
 }
 
-int tmp006_reset(void)
-{
-    uint8_t reg[2];
-    uint16_t tmp = TMP006_CONFIG_RST;
-    reg[0] = (tmp >> 8);
-    reg[1] = tmp;
+int tmp006_reset(void) {
+  uint8_t reg[2];
+  uint16_t tmp = TMP006_CONFIG_RST;
+  reg[0] = (tmp >> 8);
+  reg[1] = tmp;
 
-    /* Acquire exclusive access to the bus. */
-    i2c_acquire(TMP006_I2C);
-    if (i2c_write_regs(TMP006_I2C, TMP006_ADDR, TMP006_REGS_CONFIG, reg, 2) != 2) {
-        i2c_release(TMP006_I2C);
-        return -TMP006_ERROR_BUS;
-    }
+  /* Acquire exclusive access to the bus. */
+  i2c_acquire(TMP006_I2C);
+  if (i2c_write_regs(TMP006_I2C, TMP006_ADDR, TMP006_REGS_CONFIG, reg, 2) != 2) {
     i2c_release(TMP006_I2C);
-    return TMP006_OK;
+    return -TMP006_ERROR_BUS;
+  }
+  i2c_release(TMP006_I2C);
+  return TMP006_OK;
 }
 
-int tmp006_set_active(void)
-{
-    uint8_t reg[2];
+int tmp006_set_active(void) {
+  uint8_t reg[2];
 
-    i2c_acquire(TMP006_I2C);
-    if (i2c_read_regs(TMP006_I2C, TMP006_ADDR, TMP006_REGS_CONFIG, reg, 2) != 2) {
-        i2c_release(TMP006_I2C);
-        return -TMP006_ERROR_BUS;
-    }
-
-    reg[0] |= (TMP006_CONFIG_MOD(TMP006_CONFIG_MOD_CC) >> 8);
-    if (i2c_write_regs(TMP006_I2C, TMP006_ADDR, TMP006_REGS_CONFIG, reg, 2) != 2) {
-        i2c_release(TMP006_I2C);
-        return -TMP006_ERROR_BUS;
-    }
+  i2c_acquire(TMP006_I2C);
+  if (i2c_read_regs(TMP006_I2C, TMP006_ADDR, TMP006_REGS_CONFIG, reg, 2) != 2) {
     i2c_release(TMP006_I2C);
-    return TMP006_OK;
+    return -TMP006_ERROR_BUS;
+  }
+
+  reg[0] |= (TMP006_CONFIG_MOD(TMP006_CONFIG_MOD_CC) >> 8);
+  if (i2c_write_regs(TMP006_I2C, TMP006_ADDR, TMP006_REGS_CONFIG, reg, 2) != 2) {
+    i2c_release(TMP006_I2C);
+    return -TMP006_ERROR_BUS;
+  }
+  i2c_release(TMP006_I2C);
+  return TMP006_OK;
 }
 
-int tmp006_set_standby(void)
-{
-    uint8_t reg[2];
+int tmp006_set_standby(void) {
+  uint8_t reg[2];
 
-    i2c_acquire(TMP006_I2C);
-    if (i2c_read_regs(TMP006_I2C, TMP006_ADDR, TMP006_REGS_CONFIG, reg, 2) != 2) {
-        i2c_release(TMP006_I2C);
-        return -TMP006_ERROR_BUS;
-    }
-
-    reg[0] &= ~(TMP006_CONFIG_MOD(TMP006_CONFIG_MOD_CC) >> 8);
-    if (i2c_write_regs(TMP006_I2C, TMP006_ADDR, TMP006_REGS_CONFIG, reg, 2) != 2) {
-        i2c_release(TMP006_I2C);
-        return -TMP006_ERROR_BUS;
-    }
+  i2c_acquire(TMP006_I2C);
+  if (i2c_read_regs(TMP006_I2C, TMP006_ADDR, TMP006_REGS_CONFIG, reg, 2) != 2) {
     i2c_release(TMP006_I2C);
-    return TMP006_OK;
+    return -TMP006_ERROR_BUS;
+  }
+
+  reg[0] &= ~(TMP006_CONFIG_MOD(TMP006_CONFIG_MOD_CC) >> 8);
+  if (i2c_write_regs(TMP006_I2C, TMP006_ADDR, TMP006_REGS_CONFIG, reg, 2) != 2) {
+    i2c_release(TMP006_I2C);
+    return -TMP006_ERROR_BUS;
+  }
+  i2c_release(TMP006_I2C);
+  return TMP006_OK;
 }

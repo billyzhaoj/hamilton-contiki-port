@@ -128,12 +128,12 @@
  * @brief   struct holding all params needed for device initialization
  */
 typedef struct at86rf2xx_params {
-    spi_t spi;              /**< SPI bus the device is connected to */
-    spi_clk_t spi_clk;      /**< SPI clock speed to use */
-    spi_cs_t cs_pin;        /**< GPIO pin connected to chip select */
-    gpio_t int_pin;         /**< GPIO pin connected to the interrupt pin */
-    gpio_t sleep_pin;       /**< GPIO pin connected to the sleep pin */
-    gpio_t reset_pin;       /**< GPIO pin connected to the reset pin */
+  spi_t spi;              /**< SPI bus the device is connected to */
+  spi_clk_t spi_clk;      /**< SPI clock speed to use */
+  spi_cs_t cs_pin;        /**< GPIO pin connected to chip select */
+  gpio_t int_pin;         /**< GPIO pin connected to the interrupt pin */
+  gpio_t sleep_pin;       /**< GPIO pin connected to the sleep pin */
+  gpio_t reset_pin;       /**< GPIO pin connected to the reset pin */
 } at86rf2xx_params_t;
 
 /**
@@ -142,23 +142,23 @@ typedef struct at86rf2xx_params {
  * @extends netdev_ieee802154_t
  */
 typedef struct {
-    //netdev_ieee802154_t netdev;             /**< netdev parent struct */
-    /* device specific fields */
-    at86rf2xx_params_t params;              /**< parameters for initialization */
-    uint8_t state;                          /**< current state of the radio */
-    uint8_t tx_frame_len;                   /**< length of the current TX frame */
-    uint8_t idle_state;                 /**< state to return to after sending */
-    uint8_t pending_tx;                 /**< keep track of pending TX calls
+  //netdev_ieee802154_t netdev;             /**< netdev parent struct */
+  /* device specific fields */
+  at86rf2xx_params_t params;              /**< parameters for initialization */
+  uint8_t state;                          /**< current state of the radio */
+  uint8_t tx_frame_len;                   /**< length of the current TX frame */
+  uint8_t idle_state;                 /**< state to return to after sending */
+  uint8_t pending_tx;                 /**< keep track of pending TX calls
                                              this is required to know when to
                                              return to @ref at86rf2xx_t::idle_state */
 #if AT86RF2XX_HAVE_RETRIES
-    /* Only radios with the XAH_CTRL_2 register support frame retry reporting */
-    uint8_t tx_retries;                 /**< Number of NOACK retransmissions */
+  /* Only radios with the XAH_CTRL_2 register support frame retry reporting */
+  uint8_t tx_retries;                 /**< Number of NOACK retransmissions */
 #endif
 #ifdef MODULE_OPENTHREAD_FTD
-    uint8_t pending_irq;
+  uint8_t pending_irq;
 #endif
-    /** @} */
+  /** @} */
 } at86rf2xx_t;
 
 #ifdef RADIO_DUTYCYCLE_MONITOR
