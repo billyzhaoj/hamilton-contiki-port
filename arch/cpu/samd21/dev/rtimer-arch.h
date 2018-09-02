@@ -30,12 +30,12 @@
  */
 
 #ifndef RTIMER_ARCH_H_
-#define RTIMER_ARCH_H_ 
+#define RTIMER_ARCH_H_
 
 #include "contiki.h"
 
 
-#define TIMER_2_DEV RTC->MODE0 
+#define TIMER_2_DEV RTC->MODE0
 
 
 #define RTIMER_ARCH_SECOND 32768

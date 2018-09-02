@@ -98,7 +98,9 @@ void clock_init(void);
  *
  * \return The current clock time, measured in system ticks.
  */
-CCIF clock_time_t clock_time(void);
+CCIF clock_time_t
+
+clock_time(void);
 
 /**
  * Get the current value of the platform seconds.
@@ -122,7 +124,8 @@ void clock_set_seconds(unsigned long sec);
  * \param t   How many ticks.
  *
  */
-void clock_wait(clock_time_t t);
+void clock_wait(clock_time_t
+t);
 
 /**
  * Delay a given number of microseconds.
@@ -137,7 +140,9 @@ void clock_delay_usec(uint16_t dt);
  *
  */
 int clock_fine_max(void);
+
 unsigned short clock_fine(void);
+
 void clock_delay(unsigned int delay);
 
 void update_ticks(void);

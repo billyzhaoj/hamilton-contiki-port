@@ -89,18 +89,18 @@ extern "C"
  * @brief   HDC1000 specific return values
  */
 enum {
-    HDC1000_OK     = 0,     /**< everything went as expected */
-    HDC1000_NODEV  = -1,    /**< no HDC1000 device found on the bus */
-    HDC1000_NOBUS  = -2,    /**< errors while initializing the I2C bus */
-    HDC1000_BUSERR = -3     /**< error during I2C communication */
+  HDC1000_OK = 0,     /**< everything went as expected */
+  HDC1000_NODEV = -1,    /**< no HDC1000 device found on the bus */
+  HDC1000_NOBUS = -2,    /**< errors while initializing the I2C bus */
+  HDC1000_BUSERR = -3     /**< error during I2C communication */
 };
 
 /**
  * @brief   Possible resolution values
  */
 typedef enum {
-    HDC1000_11BIT = (HDC1000_TRES11 | HDC1000_HRES11),  /**< 11-bit conversion */
-    HDC1000_14BIT = (HDC1000_TRES14 | HDC1000_HRES14)   /**< 14-bit conversion */
+  HDC1000_11BIT = (HDC1000_TRES11 | HDC1000_HRES11),  /**< 11-bit conversion */
+  HDC1000_14BIT = (HDC1000_TRES14 | HDC1000_HRES14)   /**< 14-bit conversion */
 } hdc1000_res_t;
 
 /**

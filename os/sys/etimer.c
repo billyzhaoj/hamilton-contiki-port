@@ -81,12 +81,12 @@ update_time(void)
 PROCESS_THREAD(etimer_process, ev, data)
 {
   struct etimer *t, *u;
-	
+
   PROCESS_BEGIN();
 
   timerlist = NULL;
-  
-  while(1) {
+
+while (1) {
     PROCESS_YIELD();
 
     if(ev == PROCESS_EVENT_EXITED) {
@@ -111,16 +111,20 @@ PROCESS_THREAD(etimer_process, ev, data)
     }
 
   again:
-    
     u = NULL;
-    
-    for(t = timerlist; t != NULL; t = t->next) {
+
+for (
+t = timerlist;
+t !=
+NULL;
+t = t->next
+) {
       if(timer_expired(&t->timer)) {
     	if(process_post(t->p, PROCESS_EVENT_TIMER, t) == PROCESS_ERR_OK) {
-	  
-	      /* Reset the process ID of the event timer, to signal that the
-	         etimer has expired. This is later checked in the
-	         etimer_expired() function. */
+
+/* Reset the process ID of the event timer, to signal that the
+   etimer has expired. This is later checked in the
+   etimer_expired() function. */
 	      t->p = PROCESS_NONE;
 	      if(u != NULL) {
 	        u->next = t->next;
@@ -136,9 +140,9 @@ PROCESS_THREAD(etimer_process, ev, data)
       }
       u = t;
     }
-    
-  }
-  
+
+}
+
   PROCESS_END();
 }
 /*---------------------------------------------------------------------------*/

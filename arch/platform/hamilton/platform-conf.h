@@ -20,16 +20,18 @@
  */
 
 /* Adjust value as needed for clock division */
-#define CLOCK_DIV		(8U)
+#define CLOCK_DIV    (8U)
 /* Generate core clock frequency */
-#define F_CPU			(8000000 / CLOCK_DIV)
+#define F_CPU      (8000000 / CLOCK_DIV)
 
-#define PLATFORM_HAS_LEDS	1
-#define PLATFORM_HAS_BUTTON	1
+#define PLATFORM_HAS_LEDS  1
+#define PLATFORM_HAS_BUTTON  1
 
 
 struct select_callback {
-      int  (* set_fd)(fd_set *fdr, fd_set *fdw);
-        void (* handle_fd)(fd_set *fdr, fd_set *fdw);
+  int (*set_fd)(fd_set *fdr, fd_set *fdw);
+
+  void (*handle_fd)(fd_set *fdr, fd_set *fdw);
 };
+
 #endif /* __PLATFORM_CONF_H__ */

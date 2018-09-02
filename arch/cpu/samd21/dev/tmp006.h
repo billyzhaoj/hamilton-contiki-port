@@ -90,11 +90,11 @@ extern "C"
  * @name    Register Map
  * @{
  */
- #define TMP006_REGS_V_OBJECT           0x00 /**< Sensor Voltage Register */
- #define TMP006_REGS_T_AMBIENT          0x01 /**< Ambient Temperature Register */
- #define TMP006_REGS_CONFIG             0x02 /**< Configuration Register */
- #define TMP006_REGS_MANUFACTURER_ID    0xFE /**< Manufacturer ID Register */
- #define TMP006_REGS_DEVICE_ID          0xFF /**< Device ID Register */
+#define TMP006_REGS_V_OBJECT           0x00 /**< Sensor Voltage Register */
+#define TMP006_REGS_T_AMBIENT          0x01 /**< Ambient Temperature Register */
+#define TMP006_REGS_CONFIG             0x02 /**< Configuration Register */
+#define TMP006_REGS_MANUFACTURER_ID    0xFE /**< Manufacturer ID Register */
+#define TMP006_REGS_DEVICE_ID          0xFF /**< Device ID Register */
 /** @} */
 
 /**
@@ -130,11 +130,11 @@ extern "C"
  * @brief   TMP006 specific return values
  */
 enum {
-    TMP006_OK,          /**< Success, no error */
-    TMP006_ERROR_BUS,   /**< I2C bus error */
-    TMP006_ERROR_DEV,   /**< internal device error */
-    TMP006_ERROR_CONF,  /**< invalid device configuration */
-    TMP006_ERROR,       /**< general error */
+  TMP006_OK,          /**< Success, no error */
+  TMP006_ERROR_BUS,   /**< I2C bus error */
+  TMP006_ERROR_DEV,   /**< internal device error */
+  TMP006_ERROR_CONF,  /**< invalid device configuration */
+  TMP006_ERROR,       /**< general error */
 };
 
 /**

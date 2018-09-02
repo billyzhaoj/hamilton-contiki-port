@@ -24,7 +24,7 @@
 #include <stdint.h>
 
 #include "periph_cpu.h"
-#include "headers/samr21e18a.h"
+#include "asf_headers/samr21e18a.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -68,18 +68,18 @@ extern "C" {
 #if PWM_NUMOF
 static const pwm_conf_t pwm_config[] = {
 #if PWM_0_EN
-    {TCC1, {
-        /* GPIO pin, MUX value, TCC channel */
-        {GPIO_PIN(PA, 6), GPIO_MUX_E, 0},
-        {GPIO_PIN(PA, 7), GPIO_MUX_E, 1}
-    }},
+        {TCC1, {
+                /* GPIO pin, MUX value, TCC channel */
+                {GPIO_PIN(PA, 6), GPIO_MUX_E, 0},
+                {GPIO_PIN(PA, 7), GPIO_MUX_E, 1}
+        }},
 #endif
 #if PWM_1_EN
-    {TCC0, {
-        /* GPIO pin, MUX value, TCC channel */
-        {GPIO_PIN(PA, 18), GPIO_MUX_F, 2},
-        {GPIO_PIN(PA, 19), GPIO_MUX_F, 3}
-    }},
+        {TCC0, {
+                /* GPIO pin, MUX value, TCC channel */
+                {GPIO_PIN(PA, 18), GPIO_MUX_F, 2},
+                {GPIO_PIN(PA, 19), GPIO_MUX_F, 3}
+        }},
 #endif
 };
 #endif
@@ -90,17 +90,17 @@ static const pwm_conf_t pwm_config[] = {
  * @{
  */
 static const spi_conf_t spi_config[] = {
-    {
-        .dev      = &SERCOM4->SPI,
-        .miso_pin = GPIO_PIN(PC, 19),
-        .mosi_pin = GPIO_PIN(PB, 30),
-        .clk_pin  = GPIO_PIN(PC, 18),
-        .miso_mux = GPIO_MUX_F,
-        .mosi_mux = GPIO_MUX_F,
-        .clk_mux  = GPIO_MUX_F,
-        .miso_pad = SPI_PAD_MISO_0,
-        .mosi_pad = SPI_PAD_MOSI_2_SCK_3
-    }
+        {
+                .dev      = &SERCOM4->SPI,
+                .miso_pin = GPIO_PIN(PC, 19),
+                .mosi_pin = GPIO_PIN(PB, 30),
+                .clk_pin  = GPIO_PIN(PC, 18),
+                .miso_mux = GPIO_MUX_F,
+                .mosi_mux = GPIO_MUX_F,
+                .clk_mux  = GPIO_MUX_F,
+                .miso_pad = SPI_PAD_MISO_0,
+                .mosi_pad = SPI_PAD_MOSI_2_SCK_3
+        }
 };
 
 #define SPI_NUMOF           (sizeof(spi_config) / sizeof(spi_config[0]))

@@ -117,11 +117,11 @@ typedef gpio_t spi_cs_t;
  * @brief   Status codes used by the SPI driver interface
  */
 enum {
-    SPI_OK          =  0,   /**< everything went as planned */
-    SPI_NODEV       = -1,   /**< invalid SPI bus specified */
-    SPI_NOCS        = -2,   /**< invalid chip select line specified */
-    SPI_NOMODE      = -3,   /**< selected mode is not supported */
-    SPI_NOCLK       = -4    /**< selected clock value is not supported */
+  SPI_OK = 0,   /**< everything went as planned */
+  SPI_NODEV = -1,   /**< invalid SPI bus specified */
+  SPI_NOCS = -2,   /**< invalid chip select line specified */
+  SPI_NOMODE = -3,   /**< selected mode is not supported */
+  SPI_NOCLK = -4    /**< selected clock value is not supported */
 };
 
 /**
