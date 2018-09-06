@@ -60,6 +60,49 @@ void at86rf2xx_setup(at86rf2xx_t *dev, const at86rf2xx_params_t *params) {
   dev->pending_tx = 0;
 }
 
+void at86rf2xx_reset(at86rf2xx_t *dev) {
+  /** Hardware reset */
+  at86rf2xx_hardware_reset(dev);
+
+  /* set short and long address */
+  at86rf2xx_set_addr_short(dev, AT86RF2XX_DEFAULT_ADDR_SHORT);
+  at86rf2xx_set_addr_long(dev, AT86RF2XX_DEFAULT_ADDR_LONG);
+
+  /* set default PAN id */
+  at86rf2xx_set_pan(dev, AT86RF2XX_DEFAULT_PANID);
+
+  /* set default Channel ID */
+  at86rf2xx_set_chan(dev, AT86RF2XX_DEFAULT_CHANNEL);
+
+  /* set default TX Power */
+  at86rf2xx_set_txpower(dev, AT86RF2XX_DEFAULT_TXPOWER);
+
+  /* Enable safe mode*/
+  at86rf2xx_reg_write(dev, AT86RF2XX_REG__TRX_CTRL_2, AT86RF2XX_TRX_CTRL_2_MASK__RX_SAFE_MODE);
+
+  /* Disable clock output to save power*/
+  uint8_t tmp = at86rf2xx_reg_read(dev, AT86RF2XX_REG__TRX_CTRL_0);
+  tmp &= ~(AT86RF2XX_TRX_CTRL_0_MASK__CLKM_CTRL);
+  tmp &= ~(AT86RF2XX_TRX_CTRL_0_MASK__CLKM_SHA_SEL);
+  tmp |= (AT86RF2XX_TRX_CTRL_0_CLKM_CTRL__OFF);
+  at86rf2xx_reg_write(dev, AT86RF2XX_REG__TRX_CTRL_0, tmp);
+
+  /* Enable interrupts*/
+  at86rf2xx_reg_write(dev, AT86RF2XX_REG__IRQ_MASK, AT86RF2XX_IRQ_STATUS_MASK__TRX_END);
+
+  /* Clear interrupt flags */
+  at86rf2xx_reg_read(dev, AT86RF2XX_REG__IRQ_STATUS);
+
+  /* Turn into RX state*/
+  at86rf2xx_set_state(dev, AT86RF2XX_STATE_RX_AACK_ON);
+
+  for (int i = 0; i < 10000; i++);
+  uint8_t state = at86rf2xx_reg_read(dev, AT86RF2XX_REG__TRX_STATUS);
+  if (state != AT86RF2XX_STATE_RX_AACK_ON) {
+    leds_on(LEDS_ALL);
+  }
+}
+
 int radio_init(void) {
   at86rf2xx_setup(dev, &at86rf2xx_params);
 
@@ -71,12 +114,6 @@ int radio_init(void) {
   spi_init_cs(dev->params.spi, dev->params.cs_pin);
   gpio_init_int(dev->params.int_pin, GPIO_IN, GPIO_RISING, _irq_handler, dev);
 
-  at86rf2xx_hardware_reset(dev);
-
-  /* Reset state machine to ensure a known state */
-  if (dev->state == AT86RF2XX_STATE_P_ON) {
-    at86rf2xx_set_state(dev, AT86RF2XX_STATE_FORCE_TRX_OFF);
-  }
 
   /* Initialize SPI */
   spi_init(0);
@@ -88,6 +125,8 @@ int radio_init(void) {
     return -1;
   }
 
-  leds_on(LEDS_ALL);
+
+  /* Reset the device to defualt and put it into RX state */
+  at86rf2xx_reset(dev);
   return 0;
 }

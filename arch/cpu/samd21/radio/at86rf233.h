@@ -35,6 +35,14 @@
 #include "periph_cpu.h"
 #include "dev/spi.h"
 
+
+
+/**
+ * @brief   Default addresses used if CPUID module is not present
+ * */
+#define AT86RF2XX_DEFAULT_ADDR_SHORT    (0xDEAD)
+#define AT86RF2XX_DEFAULT_ADDR_LONG     (0xDEADBEEFB0BACAFE)
+
 /**
  * @brief   Maximum possible packet size in byte
  */
