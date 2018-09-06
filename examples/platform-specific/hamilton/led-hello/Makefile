@@ -7,7 +7,7 @@ DEBUGSERVER = $(DEBUG_SCRIPTS)/debugserver.sh
 FLASHER = $(DEBUG_SCRIPTS)/flash.sh
 RTTTERM = $(DEBUG_SCRIPTS)/term.sh
 
-CFLAGS += -Os
+CFLAGS += -O0
 
 all: $(CONTIKI_PROJECT) 
 

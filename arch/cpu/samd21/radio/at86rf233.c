@@ -64,11 +64,11 @@ int radio_init(void) {
   at86rf2xx_setup(dev, &at86rf2xx_params);
 
   /* initialize GPIOs */
-  spi_init_cs(dev->params.spi, dev->params.cs_pin);
   gpio_init(dev->params.sleep_pin, GPIO_OUT);
   gpio_clear(dev->params.sleep_pin);
   gpio_init(dev->params.reset_pin, GPIO_OUT);
   gpio_set(dev->params.reset_pin);
+  spi_init_cs(dev->params.spi, dev->params.cs_pin);
   gpio_init_int(dev->params.int_pin, GPIO_IN, GPIO_RISING, _irq_handler, dev);
 
   at86rf2xx_hardware_reset(dev);
@@ -78,15 +78,16 @@ int radio_init(void) {
     at86rf2xx_set_state(dev, AT86RF2XX_STATE_FORCE_TRX_OFF);
   }
 
-  at86rf2xx_set_state(dev, AT86RF2XX_STATE_SLEEP);
+  /* Initialize SPI */
+  spi_init(0);
 
   /* test if the SPI is set up correctly and the device is responding */
   if (at86rf2xx_reg_read(dev, AT86RF2XX_REG__PART_NUM) !=
       AT86RF2XX_PARTNUM) {
+    // Error, unable to read correct part number.
     return -1;
   }
 
-  //leds_on(LEDS_ALL);
-
+  leds_on(LEDS_ALL);
   return 0;
 }

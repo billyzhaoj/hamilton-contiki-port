@@ -60,6 +60,9 @@ rtimer_arch_init(void) {
   /* Timer2 Start */
   TIMER_2_DEV.CTRL.bit.ENABLE = 1;
   while (GCLK->STATUS.bit.SYNCBUSY) {}
+
+  /* Start the RTC handler after it's finished being set up*/
+  RTC_Handler();
 }
 
 void

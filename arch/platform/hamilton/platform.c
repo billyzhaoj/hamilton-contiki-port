@@ -24,7 +24,6 @@ platform_init_stage_one(void) {
 
 void
 platform_init_stage_two(void) {
-  RTC_Handler();
 }
 
 void
