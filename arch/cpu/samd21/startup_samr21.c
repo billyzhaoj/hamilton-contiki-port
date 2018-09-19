@@ -83,7 +83,7 @@ void WDT_Handler(void) __attribute__ ((weak, alias("Dummy_Handler")));
 
 void RTC_Handler(void) __attribute__ ((weak, alias("Dummy_Handler")));
 
-void EIC_Handler(void) __attribute__ ((weak, alias("Dummy_Handler")));
+//void EIC_Handler(void) __attribute__ ((weak, alias("Dummy_Handler")));
 
 void NVMCTRL_Handler(void) __attribute__ ((weak, alias("Dummy_Handler")));
 
@@ -296,7 +296,46 @@ void Reset_Handler(void) {
 /**
  * \brief Default interrupt handler for unused IRQs.
  */
+uint32_t phantomISR = 9999;
+
 void Dummy_Handler(void) {
   while (1) {
+    phantomISR = __get_IPSR();
   }
 }
+
+
+
+
+
+//
+//void NMI_Handler (void){phantomISR=1;}
+//void HardFault_Handler              (void){phantomISR = 1;}
+//void SVC_Handler              (void){phantomISR = 1;}
+//void PendSV_Handler              (void){phantomISR = 1;}
+//void SysTick_Handler              (void){phantomISR = 1;}
+//
+///* Peripherals handlers */
+//void PM_Handler              (void){phantomISR = 1;}
+//void SYSCTRL_Handler              (void){phantomISR = 1;}
+//void WDT_Handler              (void){phantomISR = 1;}
+//void EIC_Handler              (void){phantomISR = 1;}
+//void NVMCTRL_Handler              (void){phantomISR = 1;}
+//void DMAC_Handler              (void){phantomISR = 1;}
+//void USB_Handler              (void){phantomISR = 1;}
+//void EVSYS_Handler              (void){phantomISR = 1;}
+//void SERCOM0_Handler              (void){phantomISR = 1;}
+//void SERCOM1_Handler              (void){phantomISR = 1;}
+//void SERCOM2_Handler              (void){phantomISR = 1;}
+//void SERCOM3_Handler              (void){phantomISR = 1;}
+//void SERCOM4_Handler              (void){phantomISR = 1;}
+//void SERCOM5_Handler              (void){phantomISR = 1;}
+//void TCC0_Handler              (void){phantomISR = 1;}
+//void TCC1_Handler              (void){phantomISR = 1;}
+//void TCC2_Handler              (void){phantomISR = 1;}
+//void TC3_Handler              (void){phantomISR = 1;}
+//void TC4_Handler              (void){phantomISR = 1;}
+//void TC5_Handler              (void){phantomISR = 1;}
+//void ADC_Handler              (void){phantomISR = 1;}
+//void AC_Handler              (void){phantomISR = 1;}
+//void PTC_Handler              (void){phantomISR = 1;}

@@ -29,6 +29,7 @@
 #include "at86rf233_registers.h"
 #include "at86rf233_internal.h"
 #include "dev/leds.h"
+#include "asf_headers/samr21e18a.h"
 
 #define _MAX_MHR_OVERHEAD   (25)
 
@@ -46,9 +47,7 @@ static const at86rf2xx_params_t at86rf2xx_params =
         };
 
 static void _irq_handler(void *arg) {
-//    if (dev->event_callback) {
-//        dev->event_callback(dev, NETDEV_EVENT_ISR);
-//    }
+  at86rf2xx_reg_read(dev, AT86RF2XX_REG__IRQ_STATUS);
 }
 
 void at86rf2xx_setup(at86rf2xx_t *dev, const at86rf2xx_params_t *params) {
@@ -88,7 +87,7 @@ void at86rf2xx_reset(at86rf2xx_t *dev) {
   at86rf2xx_reg_write(dev, AT86RF2XX_REG__TRX_CTRL_0, tmp);
 
   /* Enable interrupts*/
-  at86rf2xx_reg_write(dev, AT86RF2XX_REG__IRQ_MASK, AT86RF2XX_IRQ_STATUS_MASK__TRX_END);
+  //at86rf2xx_reg_write(dev, AT86RF2XX_REG__IRQ_MASK, AT86RF2XX_IRQ_STATUS_MASK__TRX_END);
 
   /* Clear interrupt flags */
   at86rf2xx_reg_read(dev, AT86RF2XX_REG__IRQ_STATUS);
@@ -126,7 +125,68 @@ int radio_init(void) {
   }
 
 
-  /* Reset the device to defualt and put it into RX state */
+  /* Reset the device to default and put it into RX state */
   at86rf2xx_reset(dev);
   return 0;
+}
+
+size_t send(uint8_t *data, size_t len) {
+  return at86rf2xx_send(dev, data, len);
+}
+
+void reset(void) {
+  return at86rf2xx_reset(dev);
+}
+
+void at86rf2xx_tx_prepare(at86rf2xx_t *dev) {
+  uint8_t state;
+  do {
+    state = at86rf2xx_get_status(dev);
+  } while (state == AT86RF2XX_STATE_BUSY_TX_ARET);
+
+  /* if receiving cancel */
+  if (state == AT86RF2XX_STATE_BUSY_RX_AACK) {
+    at86rf2xx_force_trx_off(dev);
+    dev->idle_state = AT86RF2XX_STATE_RX_AACK_ON;
+  } else if (state != AT86RF2XX_STATE_TX_ARET_ON) {
+    dev->idle_state = state;
+  } else {
+
+  }
+  at86rf2xx_set_state(dev, AT86RF2XX_STATE_TX_ARET_ON);
+  dev->tx_frame_len = IEEE802154_FCS_LEN;
+}
+
+size_t at86rf2xx_tx_load(at86rf2xx_t *dev, uint8_t *data, size_t len,
+                         size_t offset) {
+  dev->tx_frame_len = (uint8_t) len;
+  at86rf2xx_sram_write(dev, offset + 1, data, len);
+  return offset + len;
+}
+
+void at86rf2xx_tx_exec(at86rf2xx_t *dev) {
+  at86rf2xx_sram_write(dev, 0, &(dev->tx_frame_len), 1);
+  at86rf2xx_reg_write(dev, AT86RF2XX_REG__TRX_STATE, AT86RF2XX_TRX_STATE__TX_START);
+}
+
+size_t at86rf2xx_send(at86rf2xx_t *dev, uint8_t *data, size_t len) {
+  if (len > AT86RF2XX_MAX_PKT_LENGTH) {
+    return 0; //0 is error in this case
+  }
+  uint8_t state = at86rf2xx_reg_read(dev, AT86RF2XX_REG__TRX_STATUS);
+  at86rf2xx_tx_prepare(dev);
+  state = at86rf2xx_reg_read(dev, AT86RF2XX_REG__TRX_STATUS);
+  at86rf2xx_tx_load(dev, data, len, 0);
+  state = at86rf2xx_reg_read(dev, AT86RF2XX_REG__TRX_STATUS);
+  at86rf2xx_tx_exec(dev);
+  state = at86rf2xx_reg_read(dev, AT86RF2XX_REG__TRX_STATUS);
+  state = -1;
+  for (state = 0; state < -1; state++);
+
+
+  return len;
+}
+
+void EIC_Handler(void) {
+  _irq_handler((void *) 1);
 }

@@ -1,0 +1,5 @@
+speed 1000
+loadbin led-hello.bin 0
+r
+g
+exit

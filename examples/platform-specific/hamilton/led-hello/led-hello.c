@@ -9,73 +9,74 @@
 
 #include "contiki.h"
 #include "dev/leds.h"
-
+#include "radio/at86rf233.h"
 #include <stdio.h> /* For printf() */
 /*---------------------------------------------------------------------------*/
 //static struct etimer et_hello;
-//static struct etimer et_blink;
+static struct etimer et_blink;
 //static uint16_t count;
-// static uint8_t blinks;
+static uint8_t blinks;
 /*---------------------------------------------------------------------------*/
-PROCESS(hello_world_process,
-"Hello world process");
-// PROCESS(blink_process, "LED blink process");
-// AUTOSTART_PROCESSES(&hello_world_process, &blink_process);
-AUTOSTART_PROCESSES(&hello_world_process);
+//PROCESS(hello_world_process,
+//"Hello world process");
+PROCESS(blink_process,
+"LED blink process");
+AUTOSTART_PROCESSES(&blink_process);
+//AUTOSTART_PROCESSES(&hello_world_process);
 /*---------------------------------------------------------------------------*/
 //static struct rtimer rt;
-rtimer_clock_t rt_for, rt_now;
-
-void
-rt_callback(struct rtimer *t, void *ptr) {
-  rt_now = RTIMER_NOW();
-
-  leds_on(LEDS_ALL);
-}
-
-
-PROCESS_THREAD(hello_world_process, ev, data
+//rtimer_clock_t rt_for, rt_now;
+//
+//void
+//rt_callback(struct rtimer *t, void *ptr) {
+//  rt_now = RTIMER_NOW();
+//
+//  leds_on(LEDS_ALL);
+//}
+//
+//
+//PROCESS_THREAD(hello_world_process, ev, data
+//)
+//{
+//PROCESS_BEGIN();
+//uint8_t xd[10] = {255, 255, 0, 0 ,255, 255, 0, 0, 128, 128};
+//
+//while(1) {
+//
+//  send(xd,10);
+//  leds_on(LEDS_ALL);
+//  for(int i =0; i < 100000; i++);
+//  leds_off(LEDS_ALL);
+//  for(int i =0; i < 100000; i++);
+//}
+//
+//PROCESS_END();
+//}
+/*---------------------------------------------------------------------------*/
+PROCESS_THREAD(blink_process, ev, data
 )
 {
 PROCESS_BEGIN();
-//  count = 0;
 
-//int i = 0;
+blinks = 0;
+
 while (1) {
-//leds_off(LEDS_ALL);
-PROCESS_YIELD();
-//etimer_set(&et_hello, CLOCK_SECOND);
-//PROCESS_YIELD_UNTIL(etimer_expired(&et_hello));
+etimer_set(&et_blink, CLOCK_SECOND);
 
-
-//rt_now = RTIMER_NOW();
-//rtimer_set(&rt, rt_now + RTIMER_SECOND, RTIMER_SECOND, rt_callback, NULL);
-//    if(ev == PROCESS_EVENT_TIMER) {
-//       count++;
-//       etimer_reset(&et_hello);
-//     }
+PROCESS_WAIT_EVENT_UNTIL(ev
+== PROCESS_EVENT_TIMER);
+uint8_t xd[1] = {1};
+if (blinks %10 == 0) {
+send(xd,
+1);
+}
+leds_off(LEDS_ALL);
+leds_on(blinks
+& LEDS_ALL);
+blinks++;
+//printf("Blink... (state %2d)\n", (int) leds_get());
 }
 
 PROCESS_END();
 }
-/*---------------------------------------------------------------------------*/
-// PROCESS_THREAD(blink_process, ev, data)
-// {
-//   PROCESS_BEGIN();
-
-//   blinks = 0;
-
-//   while(1) {
-//     etimer_set(&et_blink, CLOCK_SECOND);
-
-//     PROCESS_WAIT_EVENT_UNTIL(ev == PROCESS_EVENT_TIMER);
-
-//     leds_off(LEDS_ALL);
-//     leds_on(blinks & LEDS_ALL);
-//     blinks++;
-//     printf("Blink... (state %0.2X)\n", leds_get());
-//   }
-
-//   PROCESS_END();
-// }
 /*---------------------------------------------------------------------------*/
