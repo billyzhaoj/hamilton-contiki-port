@@ -42,40 +42,7 @@ PROCESS_BEGIN();
 
 //int i = 0;
 while (1) {
-//leds_off(LEDS_ALL);
-PROCESS_YIELD();
-//etimer_set(&et_hello, CLOCK_SECOND);
-//PROCESS_YIELD_UNTIL(etimer_expired(&et_hello));
-
-
-//rt_now = RTIMER_NOW();
-//rtimer_set(&rt, rt_now + RTIMER_SECOND, RTIMER_SECOND, rt_callback, NULL);
-//    if(ev == PROCESS_EVENT_TIMER) {
-//       count++;
-//       etimer_reset(&et_hello);
-//     }
 }
 
 PROCESS_END();
 }
-/*---------------------------------------------------------------------------*/
-// PROCESS_THREAD(blink_process, ev, data)
-// {
-//   PROCESS_BEGIN();
-
-//   blinks = 0;
-
-//   while(1) {
-//     etimer_set(&et_blink, CLOCK_SECOND);
-
-//     PROCESS_WAIT_EVENT_UNTIL(ev == PROCESS_EVENT_TIMER);
-
-//     leds_off(LEDS_ALL);
-//     leds_on(blinks & LEDS_ALL);
-//     blinks++;
-//     printf("Blink... (state %0.2X)\n", leds_get());
-//   }
-
-//   PROCESS_END();
-// }
-/*---------------------------------------------------------------------------*/

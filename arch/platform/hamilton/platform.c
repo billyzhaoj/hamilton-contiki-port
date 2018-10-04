@@ -40,7 +40,7 @@ platform_init_stage_three(void) {
       spi_init(SPI_DEV(i));
   }
 #endif
-  radio_init();
+  //radio_init();
 }
 
 enum system_sleepmode {

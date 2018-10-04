@@ -45,6 +45,8 @@
 #include "sys/platform.h"
 #include "sys/energest.h"
 #include "dev/watchdog.h"
+
+
 #include "dev/leds.h"
 #include "dev/gpio.h"
 
@@ -132,6 +134,7 @@ main(void) {
 
   platform_init_stage_two();
 
+  netstack_init();
   platform_init_stage_three();
 
   autostart_start(autostart_processes);

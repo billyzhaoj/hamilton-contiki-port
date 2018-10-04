@@ -34,8 +34,7 @@
 
 #include "periph_cpu.h"
 #include "dev/spi.h"
-
-
+#include "ieee802154.h"
 
 /**
  * @brief   Default addresses used if CPUID module is not present
@@ -46,7 +45,7 @@
 /**
  * @brief   Maximum possible packet size in byte
  */
-#define AT86RF2XX_MAX_PKT_LENGTH        (IEEE802154_FRAME_LEN_MAX)
+#define AT86RF2XX_MAX_PKT_LENGTH        (127)
 
 /**
  * @name    Channel configuration
@@ -176,6 +175,8 @@ extern uint64_t radioOffTime;
 
 int radio_init(void);
 
+
+void reset(void);
 /**
  * @brief   Setup an AT86RF2xx based device state
  *
@@ -428,7 +429,7 @@ size_t at86rf2xx_send(at86rf2xx_t *dev, uint8_t *data, size_t len);
  *
  * @param[in] dev            device to prepare for sending
  */
-bool at86rf2xx_tx_prepare(at86rf2xx_t *dev);
+void at86rf2xx_tx_prepare(at86rf2xx_t *dev);
 
 /**
  * @brief   Load chunks of data into the transmit buffer of the given device
@@ -462,5 +463,7 @@ void at86rf2xx_tx_exec(at86rf2xx_t *dev);
  */
 bool at86rf2xx_cca(at86rf2xx_t *dev);
 
+/** Reset state machine state */
+void at86rf2xx_reset_state_machine(at86rf2xx_t *dev);
 #endif /* AT86RF233_H */
 /** @} */
